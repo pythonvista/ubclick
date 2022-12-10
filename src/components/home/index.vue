@@ -3,7 +3,7 @@
     <div class="btns  w-full flex flex-col items-start justify-end gap-3">
         <p class="ma-0 pa-0 text-white text-2xl font-bold">Welcome to</p>
         <img src="@/assets/img/logo.png" alt="">
-        <v-btn large class="w-full btn" color="white">Login</v-btn>
+        <v-btn :to="{name: 'Login'}" large class="w-full btn" color="white">Login</v-btn>
         <v-btn large color="#00DC48" class="w-full btn " >Create an Account</v-btn>
     </div>
 
