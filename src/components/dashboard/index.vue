@@ -10,7 +10,7 @@
       /></v-btn>
     </div>
 
-    <div class="flex justify-between gap-2 my-3 py-3 px-1">
+    <div class="flex justify-between w-full gap-2 my-3 py-3 px-1">
       <div
         class="bg-prigreen wallet pa-3 flex-1 flex justify-center items-start flex-col gap-1 rounded-md shadow-sm"
       >
@@ -240,6 +240,7 @@ export default {
 
 .wallet {
   width: 50% !important;
+  flex: 50% !important;
 }
 .bonus {
   width: 50% !important;
