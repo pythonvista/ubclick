@@ -92,16 +92,14 @@
       <template v-slot:activator>
         <v-btn
           v-model="fab"
-          color="blue darken-2"
+          color="green"
           dark
           fab
         >
           <v-icon v-if="fab">
             mdi-close
           </v-icon>
-          <v-icon v-else>
-            mdi-account-circle
-          </v-icon>
+          <img v-else src="@/assets/img/subway_menu.svg" alt="">
         </v-btn>
       </template>
       <v-btn
