@@ -21,7 +21,7 @@
       </div>
        
      
-      <v-btn color="black" class="w-full login_btn mt-2">Login</v-btn>
+      <v-btn :to="{name: 'Dashboard'}" color="black" class="w-full login_btn mt-2">Login</v-btn>
       <p class="ma-0 pa-0 mt-2 text-black text-sm">Dont have an account? <span class="text-primary">Sign up</span></p>
     </div>
   </div>
