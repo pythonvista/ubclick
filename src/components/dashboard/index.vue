@@ -5,7 +5,7 @@
         <p class="ma-0 pa-0 text-lg font-bold">John Doe</p>
         <p class="ma-0 pa-0 text-sm">Smart Earner</p>
       </div>
-      <v-btn text fab small
+      <v-btn @click="drawer = !drawer" text fab small
         ><img src="@/assets/img/menusvg.svg" alt=""
       /></v-btn>
     </div>
@@ -78,9 +78,92 @@
       </div>
     </div>
     <div class="pa-3 fixed bottom-0 right-0">
-        <v-btn color="green" fab><img src="@/assets/img/subway_menu.svg" alt=""></v-btn>
+        <!-- <v-btn color="green" fab><img src="@/assets/img/subway_menu.svg" alt=""></v-btn> -->
+        <v-speed-dial
+      v-model="fab"
+      :top="top"
+      :bottom="bottom"
+      :right="right"
+      :left="left"
+      :direction="direction"
+      :open-on-hover="hover"
+      :transition="transition"
+    >
+      <template v-slot:activator>
+        <v-btn
+          v-model="fab"
+          color="blue darken-2"
+          dark
+          fab
+        >
+          <v-icon v-if="fab">
+            mdi-close
+          </v-icon>
+          <v-icon v-else>
+            mdi-account-circle
+          </v-icon>
+        </v-btn>
+      </template>
+      <v-btn
+        fab
+        dark
+        small
+        color="green"
+      >
+        <v-icon>mdi-pencil</v-icon>
+      </v-btn>
+      <v-btn
+        fab
+        dark
+        small
+        color="indigo"
+      >
+        <v-icon>mdi-plus</v-icon>
+      </v-btn>
+      <v-btn
+        fab
+        dark
+        small
+        color="red"
+      >
+        <v-icon>mdi-delete</v-icon>
+      </v-btn>
+    </v-speed-dial>
     </div>
-    
+  
+    <v-navigation-drawer
+      v-model="drawer"
+      absolute
+      temporary
+    >
+      <v-list-item>
+        <v-list-item-avatar>
+          <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
+        </v-list-item-avatar>
+
+        <v-list-item-content>
+          <v-list-item-title>John Leider</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+
+      <v-list dense>
+        <v-list-item
+          v-for="item in items"
+          :key="item.title"
+          link
+        >
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
   </div>
 </template>
 
@@ -88,6 +171,17 @@
 export default {
   name: "Index",
   data: () => ({
+    direction: 'top',
+      fab: false,
+      fling: false,
+      hover: false,
+      tabs: null,
+      top: false,
+      right: true,
+      bottom: true,
+      left: false,
+      transition: 'slide-y-reverse-transition',
+    drawer: false,
     services: [
       {
         title: "Buy Data",
@@ -123,6 +217,20 @@ export default {
       },
     ],
   }),
+  watch: {
+      top (val) {
+        this.bottom = !val
+      },
+      right (val) {
+        this.left = !val
+      },
+      bottom (val) {
+        this.top = !val
+      },
+      left (val) {
+        this.right = !val
+      },
+    },
 };
 </script>
 
@@ -139,4 +247,11 @@ export default {
   width: 50% !important;
   flex: 50% !important;
 }
+#create .v-speed-dial {
+    position: absolute;
+  }
+
+  #create .v-btn--floating {
+    position: relative;
+  }
 </style>
