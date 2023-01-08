@@ -214,6 +214,7 @@ export default {
         img: require("@/assets/img/cablesub.png"),
       },
     ],
+    items: []
   }),
   watch: {
       top (val) {

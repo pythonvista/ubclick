@@ -10,6 +10,8 @@ import vuetify from "./plugins/vuetify";
 import router from "./router";
 import store from "./store";
 
+export const nav = new Vue();
+export const snackbar = new Vue();
 Vue.config.productionTip = false
 
 new Vue({

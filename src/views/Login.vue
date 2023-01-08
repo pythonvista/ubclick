@@ -3,15 +3,15 @@
     <div class="g-img flex justify-center items-center">
       <img class="" src="@/assets/img/login.png" alt="" />
     </div>
-    <div
+    <v-form ref="form"
       class="login-box px-5 shadow-md flex flex-col items-center gap-2 justify-center"
     >
       <p class="ma-0 pa-0 text-2xl font-bold">Sign In</p>
       <div class="w-full ">
-        <v-text-field prepend-inner-icon="mdi-email" label="Email" solo dense class="ma-0 pa-0"></v-text-field>
+        <v-text-field :rules="emailRules" v-model="dform.email" prepend-inner-icon="mdi-email" label="Email" solo dense class="ma-0 pa-0"></v-text-field>
       </div>
       <div class="w-full ">
-        <v-text-field prepend-inner-icon="mdi-lock" label="Password" solo dense class="ma-0 pa-0"></v-text-field>
+        <v-text-field :rules="inputRules" v-model="dform.passwd" prepend-inner-icon="mdi-lock" label="Password" solo dense class="ma-0 pa-0"></v-text-field>
       </div>
       <div class=" w-full password_b">
         <v-checkbox dense class="ma-0 pa-0 "
@@ -21,15 +21,54 @@
       </div>
        
      
-      <v-btn :to="{name: 'Dashboard'}" color="black" class="w-full login_btn mt-2">Login</v-btn>
-      <p class="ma-0 pa-0 mt-2 text-black text-sm">Dont have an account? <span class="text-primary">Sign up</span></p>
-    </div>
+      <v-btn :loading="loading"  @click="Login" color="black" class="w-full login_btn mt-2">Login</v-btn>
+        <v-btn x-small text :to="{name: 'Register'}" link  class="ma-0 pa-0 mt-2 text-black text-sm"> <p class="ma-0 pa-0 mt-2 text-black text-sm">Dont have an account? <span class="text-primary">Sign up</span></p></v-btn>
+     
+    </v-form>
   </div>
 </template>
 
 <script>
+import { snackbar } from "@/main";
+import { authfunc } from "@/services";
+
 export default {
   name: "Login",
+  data:()=>({
+    dform: {
+      email: '',
+      passwd: ''
+
+    },
+    inputRules: [
+    (v) => (v && v.length >= 1) || 'Field is required'
+  ],
+  emailRules: [
+    (v) => !!v || 'E-mail is required',
+    (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+  ],
+    loading: false,
+  }),
+  methods:{
+    async Login(){
+      if(this.$refs.form.validate()){
+        this.loading = true
+        try{
+        const res = await authfunc.login(this.dform.email, this.dform.passwd)
+        if(res){
+          this.loading = false
+          snackbar.$emit('open', { color: 'success', text: 'Logged in Successfully' })
+          this.$router.push({name: 'Dashboard'})
+        }
+      }catch(err){
+        this.loading = false
+        snackbar.$emit('open', { color: 'error', text: err.message })
+      }
+      }
+      
+    }
+  
+  }
 };
 </script>
 
