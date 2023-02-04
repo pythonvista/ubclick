@@ -32,10 +32,11 @@
 
 <script>
 import { snackbar } from "@/main";
-import {
-  authfunc,
-  crud,
-} from "@/services";
+// import {
+//   authfunc,
+//   crud,
+// } from "@/services";
+import { apiClient } from "@/services/fetch";
 
 export default {
   name: "Register",
@@ -45,6 +46,7 @@ export default {
       email: '',
       passwd: '',
       phone: '',
+      referal: ''
 
     },
     inputRules: [
@@ -61,21 +63,26 @@ export default {
       if(this.$refs.form.validate()){
         this.loading = true
         try{
-        const res = await authfunc.signup(this.dform.email, this.dform.passwd)
-        if(res.user.uid){
           let data = {
             fullname: this.dform.fullname,
+            passwd: this.dform.passwd,
             email: this.dform.email,
             phone: this.dform.phone,
             account: 'smart earner',
             balance: 0,
             bonusBalance: 0,
+            referal: this.referal
           }
-          await crud.addDocWithId('USERS', res.user.uid, data)
+          const res = await apiClient('signup',"POST", data)
+          const body = await res.json()
+         if(body.status == 'success'){
           this.loading = false
           snackbar.$emit('open', { color: 'success', text: 'Account Created Successfully' })
           snackbar.$emit('open', { color: 'success', text: 'Login to your account' })
-        }
+          this.$router.push({path: '/login'})
+         }else{
+          throw {message: body.msg.code}
+         }
       }catch(err){
         this.loading = false
         snackbar.$emit('open', { color: 'error', text: err.message })

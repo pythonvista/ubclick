@@ -1,9 +1,40 @@
 <template>
-  <router-view/>
+   <div class="flex h-screen justify-center items-center" v-if="!userData.id">
+    <v-skeleton-loader class="w-full" v-bind="attrs"
+      type="list-item-avatar, divider, list-item-three-line, card-heading, image, actions"></v-skeleton-loader>
+  </div>
+  <router-view :userData="userData" v-else/>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
+import { apiClient } from "@/services/fetch";
+
 export default {
+  name: 'Dashboard',
+  data: ()=>({
+    userData: {}
+  }),
+  created(){
+    this.getUserData()
+  },
+  computed:{
+    ...mapState(['activeUser'])
+  },
+  methods:{
+  async  getUserData(){
+    try{
+      const res = await apiClient('userData', 'POST', {uid: this.activeUser})
+     this.userData = await res.json()
+  
+    }catch(err){
+      console.log(err)
+    }
+    }
+
+  }
+
 
 }
 </script>

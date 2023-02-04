@@ -2,8 +2,8 @@
   <div class="wrap py-3 px-2 relative">
     <div class="flex justify-between w-full px-3 py-2">
       <div class="flex flex-col justify-center items-start">
-        <p class="ma-0 pa-0 text-lg font-bold">John Doe</p>
-        <p class="ma-0 pa-0 text-sm">Smart Earner</p>
+        <p class="ma-0 pa-0 text-lg font-bold">{{ userData.fullname }}</p>
+        <p class="ma-0 pa-0 text-sm">{{ userData.account }}</p>
       </div>
       <v-btn @click="drawer = !drawer" text fab small
         ><img src="@/assets/img/menusvg.svg" alt=""
@@ -16,12 +16,12 @@
       >
         <v-icon color="white">mdi-wallet</v-icon>
         <p class="ma-0 pa-0 text-white text-sm">Wallet Balance</p>
-        <p class="text-white text-lg ma-0 pa-0">₦{{ 50.0 }}</p>
+        <p class="text-white text-lg ma-0 pa-0">₦{{ userData.balance }}</p>
       </div>
       <div class="bg-priblue bonus pa-3 flex-1 gap-1 rounded-md shadow-sm">
         <v-icon color="white">mdi-wallet</v-icon>
         <p class="ma-0 pa-0 text-white text-sm">Bonus Balance</p>
-        <p class="text-white text-lg ma-0 pa-0">₦{{ 0 }}</p>
+        <p class="text-white text-lg ma-0 pa-0">₦{{ userData.bonusBalance }}</p>
       </div>
     </div>
 
@@ -116,8 +116,8 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title class="text-white">John Leider</v-list-item-title>
-          <v-list-item-title  class="text-white">Balance ₦0.00</v-list-item-title>
+          <v-list-item-title class="text-white">{{ userData.fullname }}</v-list-item-title>
+          <v-list-item-title  class="text-white">Balance ₦{{ userData.balance }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
@@ -135,6 +135,12 @@
             <v-list-item-title  class="text-white">{{ item.title }}</v-list-item-title>
           
         </v-list-item>
+
+        <v-list-item @click="LogOut"  class="mx-4 mb-2 flex items-center gap-3"  link>
+            <v-icon color="white">mdi-logout</v-icon>
+            <v-list-item-title  class="text-white">Logout</v-list-item-title>
+
+        </v-list-item>
       </v-list>
     </div>
     </v-navigation-drawer>
@@ -144,6 +150,7 @@
 <script>
 export default {
   name: "Index",
+  props: ['userData'],
   data: () => ({
     direction: "top",
     fab: false,
@@ -207,13 +214,16 @@ export default {
       {title: 'Change Password', type: 'dash', icon: 'mdi-cog-outline'},
       {title: 'Transaction Pin', type: 'dash', icon: 'mdi-shield-lock'},
       {title: 'Settings', type: 'dash', icon: 'mdi-cog-outline'},
-      {title: 'Logout', type: 'dash', icon: 'mdi-logout'},
 
     ],
   }),
   methods:{
     Goto(url){
       this.$router.push({name: url})
+    },
+    LogOut(){
+      this.$store.dispatch('RemoveUser', '')
+      this.$router.push({path: '/'})
     }
   },
   watch: {

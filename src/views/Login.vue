@@ -30,7 +30,7 @@
 
 <script>
 import { snackbar } from "@/main";
-import { authfunc } from "@/services";
+import { apiClient } from "@/services/fetch";
 
 export default {
   name: "Login",
@@ -54,11 +54,15 @@ export default {
       if(this.$refs.form.validate()){
         this.loading = true
         try{
-        const res = await authfunc.login(this.dform.email, this.dform.passwd)
-        if(res){
+        const res = await apiClient('login', 'POST', this.dform)
+        const body = await res.json()
+        if(body.status == 'success'){
           this.loading = false
           snackbar.$emit('open', { color: 'success', text: 'Logged in Successfully' })
+          this.$store.dispatch('ActiveUser', body.data.uid);
           this.$router.push({name: 'Dashboard'})
+        }else{
+          throw {message: body.msg.code}
         }
       }catch(err){
         this.loading = false
