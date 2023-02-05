@@ -110,7 +110,7 @@ export default {
         amount: this.dform.amount * 100,
         metadata: this.userData,
         onSuccess: async (transaction) => {
-            if(transaction.refrence){
+            if(transaction){
                 this.loading = false
                 snackbar.$emit('open', { color: 'success', text: 'Transaction Processed'})
                 this.$router.push({name:'Dashboard'})
