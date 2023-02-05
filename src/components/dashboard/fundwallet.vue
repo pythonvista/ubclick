@@ -112,7 +112,7 @@ export default {
         onSuccess: async (transaction) => {
             if(transaction.refrence){
                 this.loading = false
-                snackbar.$emit('open', { color: 'success', text: data.msg})
+                snackbar.$emit('open', { color: 'success', text: 'Transaction Processed'})
                 this.$router.push({name:'Dashboard'})
             }
         },
