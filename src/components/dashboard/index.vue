@@ -11,7 +11,7 @@
     </div>
 
     <div class="flex justify-between w-full gap-2 my-3 py-3 px-1">
-      <div
+      <div @click="WalletSumary"
         class="bg-prigreen wallet pa-3 flex-1 flex justify-center items-start flex-col gap-1 rounded-md shadow-sm"
       >
         <v-icon color="white">mdi-wallet</v-icon>
@@ -224,6 +224,9 @@ export default {
     LogOut(){
       this.$store.dispatch('RemoveUser', '')
       this.$router.push({path: '/'})
+    },
+    WalletSumary(){
+      this.$router.push({name: 'WalletSummary'})
     }
   },
   watch: {

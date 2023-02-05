@@ -10,7 +10,14 @@
           Wallet Summary
         </p>
       </div>
-      
+      <div class="grid grid-cols-1 gap-2 px-3">
+        <div class="pa-3 flex justify-between border-2 rounded border-solid">
+          <p class="ma-0 pa-0">Wallet Top-Up</p>
+          <p class="ma-0 pa-0">+500</p>
+          <p class="ma-0 pa-0">Success</p>
+        </div>
+
+      </div>
     </div>
   </template>
   
@@ -20,7 +27,11 @@ export default {
     data: () => ({
       tab: null
     }),
-    methods: {},
+    methods: {
+     async GetTransactions(){
+
+      }
+    },
     created() {},
   };
 </script>
