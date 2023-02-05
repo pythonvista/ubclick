@@ -80,6 +80,12 @@ const routes = [
         name: "ResultChecker",
         component: () =>
         import(/* webpackChunkName: "about" */ "@/components/dashboard/resultchecker.vue"),
+      },
+      {
+        path: "/fundwallet",
+        name: "FundWallet",
+        component: () =>
+        import(/* webpackChunkName: "about" */ "@/components/dashboard/fundwallet.vue"),
       }
     ],
   },

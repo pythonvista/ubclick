@@ -31,7 +31,7 @@
       <div
         class="py-1 hover:bg-slate-100 rounded flex flex-col items-center justify-center"
       >
-        <v-btn color="transparent" small text class=""
+        <v-btn :to="{path: '/fundwallet'}" color="transparent" small text class=""
           ><img src="@/assets/img/fund-wallet.svg" alt=""
         /></v-btn>
         <p class="pa-0 ma-0 text-xs font-medium">Fund Wallet</p>

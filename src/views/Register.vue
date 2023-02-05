@@ -5,26 +5,26 @@
     >
       <p class="ma-0 pa-0 text-2xl font-bold">Create Account</p>
       <div class="w-full ">
-        <v-text-field :rules="inputRules"  v-model="dform.fullname" prepend-inner-icon="mdi-account" label="Fullname" solo dense class="ma-0 pa-0"></v-text-field>
+        <v-text-field :rules="inputRules"  v-model="dform.fullname" prepend-inner-icon="mdi-account" label="Fullname" solo flat  class="ma-0 pa-0"></v-text-field>
       </div>
       <div class="w-full ">
-        <v-text-field :rules="inputRules"  v-model="dform.username" prepend-inner-icon="mdi-account-circle" label="Username" solo dense class="ma-0 pa-0"></v-text-field>
+        <v-text-field :rules="inputRules"  v-model="dform.username" prepend-inner-icon="mdi-account-circle" label="Username" solo flat class="ma-0 pa-0"></v-text-field>
       </div>
       <div class="w-full ">
-        <v-text-field :rules="emailRules" v-model="dform.email" prepend-inner-icon="mdi-email" label="Email" solo dense class="ma-0 pa-0"></v-text-field>
+        <v-text-field :rules="emailRules" v-model="dform.email" prepend-inner-icon="mdi-email" label="Email" solo flat class="ma-0 pa-0"></v-text-field>
       </div>
       <div class="w-full ">
-        <v-text-field :rules="inputRules"  v-model="dform.phone" prepend-inner-icon="mdi-phone" label="Phone Number" solo dense class="ma-0 pa-0"></v-text-field>
+        <v-text-field :rules="inputRules"  v-model="dform.phone" prepend-inner-icon="mdi-phone" label="Phone Number" solo flat class="ma-0 pa-0"></v-text-field>
       </div>
       <div class="w-full ">
-        <v-text-field v-model="dform.referal" prepend-inner-icon="mdi-account-plus" label="Referal Username[optional]" solo dense class="ma-0 pa-0"></v-text-field>
+        <v-text-field v-model="dform.referal" prepend-inner-icon="mdi-account-plus" label="Referal Username[optional]" solo flat class="ma-0 pa-0"></v-text-field>
       </div>
       <div class="w-full ">
-        <v-text-field :rules="inputRules"  v-model="dform.passwd" prepend-inner-icon="mdi-lock" label="Password" solo dense class="ma-0 pa-0"></v-text-field>
+        <v-text-field :rules="inputRules"  v-model="dform.passwd" prepend-inner-icon="mdi-lock" label="Password" solo flat class="ma-0 pa-0"></v-text-field>
       </div>
             
-      <v-btn @click="Register"  :loading="loading" color="black" class="w-full login_btn mt-2">Sign Up</v-btn>
-        <v-btn x-small text :to="{name: 'Login'}" link  class="ma-0 pa-0 mt-2 text-black text-sm">Already have an account? <span class="text-primary">Sign in</span></v-btn>
+      <v-btn @click="Register" depressed  :loading="loading" color="black" class="w-full login_btn mt-2">Sign Up</v-btn>
+        <v-btn x-small text :to="{name: 'Login'}" link  class="ma-0 pa-0 mt-2 text-black "><p class="font-bold text-capitalize ma-0 pa-0">Already have an account? <span class="text-primary">Sign in</span></p> </v-btn>
      
     </v-form>
   </div>

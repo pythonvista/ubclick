@@ -8,21 +8,21 @@
     >
       <p class="ma-0 pa-0 text-2xl font-bold">Sign In</p>
       <div class="w-full ">
-        <v-text-field :rules="emailRules" v-model="dform.email" prepend-inner-icon="mdi-email" label="Email" solo dense class="ma-0 pa-0"></v-text-field>
+        <v-text-field :rules="emailRules" v-model="dform.email" prepend-inner-icon="mdi-email" label="Email" background-color="white" solo flat  class="ma-0 elevation-0 pa-0"></v-text-field>
       </div>
       <div class="w-full ">
-        <v-text-field :rules="inputRules" v-model="dform.passwd" prepend-inner-icon="mdi-lock" label="Password" solo dense class="ma-0 pa-0"></v-text-field>
+        <v-text-field :rules="inputRules" v-model="dform.passwd" prepend-inner-icon="mdi-lock" label="Password" solo flat  class="ma-0 pa-0"></v-text-field>
       </div>
       <div class=" w-full password_b">
-        <v-checkbox dense class="ma-0 pa-0 "
+        <v-checkbox depressed dense background-color="transparent"  class="ma-0 pa-0 "
           label="Save my password"
         ></v-checkbox>
        <p class="ma-0 pa-0 text-primary text-sm">Forgot password</p>
       </div>
        
      
-      <v-btn :loading="loading"  @click="Login" color="black" class="w-full login_btn mt-2">Login</v-btn>
-        <v-btn x-small text :to="{name: 'Register'}" link  class="ma-0 pa-0 mt-2 text-black text-sm"> <p class="ma-0 pa-0 mt-2 text-black text-sm">Dont have an account? <span class="text-primary">Sign up</span></p></v-btn>
+      <v-btn :loading="loading" depressed @click="Login" color="black" class="w-full login_btn mt-2">Login</v-btn>
+        <v-btn x-small text :to="{name: 'Register'}" link  class="ma-0 pa-0 mt-2 text-black text-sm"> <p class="ma-0 pa-0 mt-2 text-black text-capitalize text-sm">Dont have an account? <span class="text-primary">Sign up</span></p></v-btn>
      
     </v-form>
   </div>
