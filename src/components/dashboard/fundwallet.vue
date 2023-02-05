@@ -70,7 +70,7 @@
 
 <script>
 import { snackbar } from "@/main";
-import { apiClient } from "@/services/fetch";
+// import { apiClient } from "@/services/fetch";
 import PaystackPop from "@paystack/inline-js";
 
 export default {
@@ -110,15 +110,16 @@ export default {
         amount: this.dform.amount * 100,
         metadata: this.userData,
         onSuccess: async (transaction) => {
-            console.log(transaction)
-            const res = await apiClient('fundwallet', 'POST', transaction)
-            const data = await res.json()
-            this.loading = false
-            snackbar.$emit('open', { color: 'success', text: data.msg})
-            this.$router.push({name:'Dashboard'})
+            if(transaction.refrence){
+                this.loading = false
+                snackbar.$emit('open', { color: 'success', text: data.msg})
+                this.$router.push({name:'Dashboard'})
+            }
         },
         onCancel: () => {
             this.dform = {}
+            this.loading = false
+            snackbar.$emit('open', { color: 'error', text: 'Process Aborted'})
         },
       });
     },

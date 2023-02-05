@@ -17,7 +17,7 @@ async function apiClient(route, method, body){
         });
         return response
       }else{
-        const response = await fetch(`http://192.168.43.156/${route}`, {
+        const response = await fetch(`https://ubclick.onrender.com/${route}`, {
           method: method,
           mode: "cors",
           cache: "no-cache",
