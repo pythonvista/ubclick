@@ -26,7 +26,7 @@
         outlined
         :items="['SME', 'GIFTING', 'CORPORATE GIFTING']"
         item-disabled
-        label="Select Network Type"
+        label="Select Plan Type"
       ></v-select>
       <v-select
         :disabled="!dform.network"
