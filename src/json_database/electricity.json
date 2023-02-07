@@ -1,0 +1,52 @@
+[
+  {
+    "active": true,
+    "DiscoID": 1,
+    "Disconame": "Ikeja Electric"
+  },
+  {
+    "active": true,
+    "DiscoID": 2,
+    "Disconame": "Eko Electric"
+  },
+  {
+    "active": true,
+    "DiscoID": 3,
+    "Disconame": "Abuja Electric"
+  },
+  {
+    "active": true,
+    "DiscoID": 4,
+    "Disconame": "Kano Electric"
+  },
+  {
+    "active": true,
+    "DiscoID": 5,
+    "Disconame": "Enugu Electric"
+  },
+  {
+    "active": true,
+    "DiscoID": 6,
+    "Disconame": "Port Harcourt Electric"
+  },
+  {
+    "active": true,
+    "DiscoID": 7,
+    "Disconame": "Ibadan Electric"
+  },
+  {
+    "active": true,
+    "DiscoID": 8,
+    "Disconame": "Kaduna Electric"
+  },
+  {
+    "active": true,
+    "DiscoID": 9,
+    "Disconame": "Jos Electric"
+  },
+  {
+    "active": true,
+    "DiscoID": 11,
+    "Disconame": "Yola Electric"
+  }
+]

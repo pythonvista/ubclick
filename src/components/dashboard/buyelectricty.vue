@@ -15,7 +15,7 @@
           v-model="dform.company"
           outlined
           :items="['NEPA', 'IKEJA', 'STARTIMES']"
-          label="Select Disco Company"
+          label="Select DiscoCompany"
         ></v-select>
         <v-select
           v-model="dform.meter"

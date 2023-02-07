@@ -15,27 +15,26 @@
         @click="SelectData()"
         v-model="dform.network"
         outlined
-        :items="['Mtn', 'Glo', 'Airtel', '9mobile']"
+        :items="networklist"
         readonly
-        :value="dform.network"
         item-disabled
         label="Select Network"
       ></v-select>
       <v-select
-        @click="SelectNetworkType()"
+        @change="SelectType"
         v-model="dform.type"
-        v-if="dform.network=='Mtn'"
         outlined
-        :items="['SME', 'GIFTING']"
+        :items="['SME', 'GIFTING', 'CORPORATE GIFTING']"
         item-disabled
         label="Select Network Type"
       ></v-select>
       <v-select
         :disabled="!dform.network"
-        @click="SelectPlan()"
+        @click="plans = true"
         v-model="dform.plan"
         outlined
-        :items="['']"
+        readonly
+        :items="planlistItems"
         label="Select Plan"
       ></v-select>
 
@@ -48,22 +47,36 @@
     <v-bottom-sheet v-model="networks">
       <v-sheet class="text-center" height="350px">
         <div class="bg-white pa-3 flex flex-col justify-center items-center gap-5">
-            <div @click="SelectNetwork('Mtn')" class="w-full px-2 py-3 border-2 rounded border-solid gap-2  hover:border-black flex items-center">
-               <v-avatar size="2rem" tile><v-img src="@/assets/img/mtn.png"></v-img></v-avatar>
-               <p class="ma-0 pa-0 font-bold text-lg ">Mtn</p>
-            </div>
-            <div  @click="SelectNetwork('Glo')" class="w-full px-2 py-3 border-2 rounded border-solid gap-2 hover:border-black flex items-center">
-               <v-avatar size="2rem" tile><v-img src="@/assets/img/glo.png"></v-img></v-avatar>
-               <p class="ma-0 pa-0 font-bold text-lg ">Glo</p>
-            </div>
-            <div  @click="SelectNetwork('Airtel')" class="w-full px-2 py-3 border-2 rounded border-solid gap-2 hover:border-black flex items-center">
-               <v-avatar size="2rem" tile><v-img src="@/assets/img/airtelpng.png"></v-img></v-avatar>
-               <p class="ma-0 pa-0 font-bold text-lg ">Airtel</p>
-            </div>
-            <div  @click="SelectNetwork('9m obile')" class="w-full px-2 py-3 border-2 rounded border-solid gap-2 hover:border-black flex items-center">
-               <v-avatar size="2rem" tile><v-img src="@/assets/img/9mobile.png"></v-img></v-avatar>
-               <p class="ma-0 pa-0 font-bold text-lg ">9mobile</p>
-            </div>
+          <div
+            v-for="(network, i) in networksPack"
+            :key="i"
+            @click="SelectNetwork(network)"
+            class="w-full px-2 py-3 border-2 rounded border-solid gap-2 hover:border-black flex items-center"
+          >
+            <v-avatar size="2rem" tile
+              ><v-img :src="network.img"></v-img
+            ></v-avatar>
+            <p class="ma-0 pa-0 font-bold text-lg">{{ network.name }}</p>
+          </div>
+           
+
+        </div>
+      </v-sheet>
+    </v-bottom-sheet>
+    <v-bottom-sheet v-model="plans">
+      <v-sheet class="text-center overflow-y-scroll" height="550px">
+        <div class="bg-white  pa-3 flex flex-col justify-center items-center gap-5">
+          <div
+            v-for="(plan, i) in planlist"
+            :key="i"
+            @click="SelectPlan(plan)"
+            class="w-full px-2 py-3 border-2 rounded border-solid gap-2 hover:border-black flex items-center"
+          >
+            <p class="ma-0 pa-0 font-bold text-lg">({{ plan.Network }}) {{ plan.Size }} - {{ plan.Amount }} - {{ plan.Validity }}</p>
+          </div>
+
+          <p v-if="planlist.length == 0" class="ma-0 pa-0 text-center w-full px-2 py-3 border-2 rounded border-solid gap-2 hover:border-black flex items-center">No Plan Available</p>
+           
 
         </div>
       </v-sheet>
@@ -72,26 +85,62 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "buydata",
   data: () => ({
     tab: null,
     dform: {
       network: "",
+      type: "",
+      plan: "" 
     },
+    planlist: [],
+    planlistItems: [],
     networks: false,
+    networklist: [],
+    plans: false,
+    inputRules: [
+    (v) => (v && v.length >= 1) || 'Field is required'
+    ],
+    amountRules: [
+    (v) => (v && v >= 50 ) || "Minimum airtime purchase is ₦50",]
   }),
   methods: {
     SelectData() {
       this.networks = true
+      this.dform.type = ""
+      this.plan = ""
     },
-    SelectNetwork(network){
-        this.dform.network = network
-        this.networks = false
-
+    SelectNetwork(network) {
+      this.dform.network = network.name;
+      this.networks = false
+    },
+    SelectType(){
+      this.dform.plan = ""
+      this.planlist = this.dataPacks.filter((v)=> v.planType.toLowerCase() == this.dform.type.toLowerCase() && v.Network.toLowerCase() == this.dform.network.toLowerCase())
+      this.planlist.forEach((i)=>{
+        this.planlistItems.push(`${i.Size}-${i.Amount}-${i.Validity}`)
+      })
+    },
+    SelectPlan(plan){
+      this.dform.planData = plan
+      this.dform.plan = `${plan.Size}-${plan.Amount}-${plan.Validity}`
+      this.plans = false
+    }
+   
+  },
+  created() {
+    if (this.networksPack) {
+      this.networksPack.forEach((v) => {
+        this.networklist.push(v.name);
+      });
     }
   },
-  created() {},
+  computed:{
+    ...mapState(["networksPack", "activeUser", "dataPacks"]),
+  }
 };
 </script>
 

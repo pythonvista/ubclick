@@ -2,6 +2,8 @@ import Vue from "vue";
 
 import Vuex from "vuex";
 
+import data from "@/json_database/dataplans.json";
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -12,7 +14,8 @@ export default new Vuex.Store({
       {name: 'Glo', id: 2, img: 'https://i.imgur.com/AYwwZ70.png'},
       {name: '9mobile', id: 3, img: 'https://i.imgur.com/heRpzyN.png'},
       {name: 'Airtel', id: 4, img: 'https://i.imgur.com/tKCtfjp.png'}
-    ]
+    ],
+    dataPacks: data
   },
   getters: {
   },
@@ -25,6 +28,9 @@ export default new Vuex.Store({
       localStorage.removeItem('activeUser')
       state.activeUser = payload;
     },
+    SET_DATAS: (state, payload) => { 
+      state.dataPacks = payload;
+  }
   },
   actions: {
     ActiveUser({ commit }, payload) {
