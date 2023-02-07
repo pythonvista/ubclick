@@ -128,6 +128,11 @@ export default {
       this.dform.planData = plan
       this.dform.plan = `${plan.Size}-${plan.Amount}-${plan.Validity}`
       this.plans = false
+      this.formatData(plan.Amount)
+    },
+    formatData(string){
+      let striped = string.slice(1);
+      this.dform.planData['amount'] = parseInt(striped)
     }
    
   },

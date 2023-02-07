@@ -1,7 +1,6 @@
 <template>
    <div class="flex h-screen justify-center items-center" v-if="!userData.id">
-    <v-skeleton-loader class="w-full" v-bind="attrs"
-      type="list-item-avatar, divider, list-item-three-line, card-heading, image, actions"></v-skeleton-loader>
+    <v-skeleton-loader class="w-full"   type="list-item-avatar, divider, list-item-three-line, card-heading, image, actions"></v-skeleton-loader>
   </div>
   <router-view :userData="userData" v-else/>
 </template>
@@ -25,9 +24,12 @@ export default {
   methods:{
   async  getUserData(){
     try{
-      const res = await apiClient('userData', 'POST', {uid: this.activeUser})
-     this.userData = await res.json()
-  
+    const res = await apiClient('userData', 'POST', {uid: this.activeUser})
+    if(res){
+      this.userData = await res.json()
+    }else{
+      this.getUserData()
+    }
     }catch(err){
       console.log(err)
     }
