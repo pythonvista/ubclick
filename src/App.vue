@@ -19,35 +19,72 @@
 <script>
 import { snackbar } from "@/main";
 
+import { apiClient } from "./services/fetch";
+
 // import { auth } from "./services";
 
 export default {
-  name: 'App',
-  methods:{
-   checkUser(){
-    let user = JSON.parse(localStorage.getItem('activeUser')) || ''
-    if(user){
-      this.$store.dispatch('ActiveUser', user);
-    }else{
-      this.$store.dispatch('RemoverUser')
-    }
-   }
+  name: "App",
+  methods: {
+    checkUser() {
+      let user = JSON.parse(localStorage.getItem("activeUser")) || "";
+      if (user) {
+        this.$store.dispatch("ActiveUser", user);
+      } else {
+        this.$store.dispatch("RemoverUser");
+      }
+    },
+    async GetStores(collection, state) {
+      try {
+        const res = await apiClient("store", "POST", {
+          collection: collection,
+        });
+        const data = await res.json()
+        if (state == "networks") {
+          this.$store.dispatch("SetNetwork", data);
+        }
+        if (state == "datapacks") {
+          this.$store.dispatch("SetDatas", data);
+        }
+        if (state == "cables") {
+          this.$store.dispatch("SetCables", data);
+        }
+        if (state == "cableplan") {
+          this.$store.dispatch("SetCablesPlan", data);
+        }
+        if (state == "electricity") {
+          this.$store.dispatch("SetElectricity", data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async RunGet() {
+      try{
+        await this.GetStores('NETWORKS', 'networks' )
+        await this.GetStores('DATAPACKS', 'datapacks' )
+        await this.GetStores('CABLES', 'cables' )
+        await this.GetStores('CABLESPLAN', 'cableplan' )
+        await this.GetStores('ELECTRICITY', 'electricity' )
+      }catch(err){
+        err
+      }
+    },
   },
 
-   created(){
-    snackbar.$on('open', (e)=>{
-      this.snackText = e.text
-      this.snackColor = e.color
-      this.snackbar = true
-    })
-    this.checkUser()
+  created() {
+    snackbar.$on("open", (e) => {
+      this.snackText = e.text;
+      this.snackColor = e.color;
+      this.snackbar = true;
+    });
+    this.checkUser();
+    this.RunGet()
   },
   data: () => ({
     snackbar: false,
-    snackText: '',
-    snackColor: ''
-  })
-
-
-}
+    snackText: "",
+    snackColor: "",
+  }),
+};
 </script>

@@ -28,6 +28,13 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/Register.vue"),
   },
   {
+    path: "/install",
+    name: "Setup",
+    // meta: { requiresGuest: true },
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/SetUp.vue"),
+  },
+  {
     path: "/dashboard",
     meta: { requiresAuth: true },
     component: () =>
@@ -89,6 +96,14 @@ const routes = [
       }
     ],
   },
+  {
+    path: "/admin",
+    meta: { requiresAuth: true },
+    name: "ADMIN",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/AdminView.vue"),
+  }
+
 ];
 
 const router = new VueRouter({

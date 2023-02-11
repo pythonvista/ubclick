@@ -2,35 +2,44 @@ import Vue from "vue";
 
 import Vuex from "vuex";
 
-import data from "@/json_database/dataplans.json";
+// import data from "@/json_database/dataplans.json";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    activeUser: '',
-    networksPack:[
-      {name: 'Mtn', id: 1, img:'https://i.imgur.com/d4NW1E8.png' },
-      {name: 'Glo', id: 2, img: 'https://i.imgur.com/AYwwZ70.png'},
-      {name: '9mobile', id: 3, img: 'https://i.imgur.com/heRpzyN.png'},
-      {name: 'Airtel', id: 4, img: 'https://i.imgur.com/tKCtfjp.png'}
-    ],
-    dataPacks: data
+    activeUser: "",
+    networksPack: [],
+    dataPacks: [],
+    cables: [],
+    cablesPlan: [],
+    electricity: [],
   },
-  getters: {
-  },
+  getters: {},
   mutations: {
     SET_ACTIVE_USER(state, payload) {
       localStorage.setItem("activeUser", JSON.stringify(payload));
       state.activeUser = payload;
     },
     UNSET_ACTIVE_USER(state, payload) {
-      localStorage.removeItem('activeUser')
+      localStorage.removeItem("activeUser");
       state.activeUser = payload;
     },
-    SET_DATAS: (state, payload) => { 
+    SET_DATAS(state, payload){
       state.dataPacks = payload;
-  }
+    },
+    SET_NETWORKS(state, payload){
+      state.networksPack = payload
+    },
+    SET_CABLES(state, payload){
+      state.cables = payload
+    },
+    SET_CABLESPLAN(state, payload){
+      state.cablesPlan = payload
+    },
+    Set_Electricity(state, payload){
+      state.electricity = payload
+    },
   },
   actions: {
     ActiveUser({ commit }, payload) {
@@ -39,8 +48,23 @@ export default new Vuex.Store({
     RemoveUser({ commit }, payload) {
       commit("UNSET_ACTIVE_USER", payload);
     },
+    SetNetwork({ commit }, payload){
+      commit("SET_NETWORKS", payload);
+    },
+    SetDatas({ commit }, payload){
+      commit("SET_DATAS", payload);
+    },
+    SetCablesPlan({ commit }, payload){
+      commit("SET_CABLESPLAN", payload);
+    },
+    SetCables({ commit }, payload){
+      commit("SET_CABLES", payload);
+    },
+    SetElectricity({ commit }, payload){
+      commit("Set_Electricity", payload);
+    },
+
 
   },
-  modules: {
-  }
-})
+  modules: {},
+});

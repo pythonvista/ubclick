@@ -117,16 +117,20 @@
 
         <v-list-item-content>
           <v-list-item-title class="text-white">{{ userData.fullname }}</v-list-item-title>
-          <v-list-item-title  class="text-white">Balance ₦{{ userData.balance }}</v-list-item-title>
+          <v-list-item-title  class="text-white">Balance: ₦{{ userData.balance }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
       <v-divider class="mx-5 bg-white"></v-divider>
 
       <v-list dense class="listss">
-        <v-list-item link class="bg-white mx-4 mb-3 rounded-md flex items-center gap-2">
+        <v-list-item link :to="{path: '/'}" class="bg-white mx-4 mb-3 rounded-md flex items-center gap-2">
             <v-icon color="black">mdi-home</v-icon>
             <v-list-item-title  class="text-black text-lg pa-0 ma-0">Dashboard</v-list-item-title>
+        </v-list-item>
+        <v-list-item :to="{path: '/admin'}" v-if="userData.account == 'ADMIN'" link class="border-2 border-solid border-white mx-4 mb-3 rounded-md flex items-center gap-2">
+            <v-icon color="white">mdi-menu</v-icon>
+            <v-list-item-title  class="text-white text-lg pa-0 ma-0">Admin Dashboard</v-list-item-title>
         </v-list-item>
 
 

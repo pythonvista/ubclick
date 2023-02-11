@@ -71,7 +71,7 @@ export default {
             account: 'smart earner',
             balance: 0,
             bonusBalance: 0,
-            referal: this.referal
+            referal: this.referal,
           }
           const res = await apiClient('signup',"POST", data)
           const body = await res.json()
