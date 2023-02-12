@@ -19,7 +19,7 @@
             (v) => v.Network.toLowerCase() == network.name.toLowerCase()
           )"
           :key="d"
-          class="pa-3 border-2 mx-3 my-2 border-solid rounded-sm shadow flex justify-between align-center"
+          class="pa-3 border-2 mx-3 my-2 md:flex-row xs:flex-col border-solid rounded-sm shadow flex justify-between align-center"
         >
           <p class="ma-0 pa-0">{{ data.planType }}</p>
           <p class="ma-0 pa-0">{{ data.Size }}</p>
@@ -83,7 +83,7 @@ export default {
     ...mapState(["dataPacks", "networksPack"]),
   },
   data: () => ({
-    loadin: false,
+    loading: false,
     dform: {},
     dialog: false,
     tab: null,

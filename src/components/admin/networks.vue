@@ -64,7 +64,7 @@ export default {
     ...mapState(["networksPack"]),
   },
   data: () => ({
-    loadin: false,
+    loading: false,
     dform: {},
     dialog: false,
     inputRules: [
