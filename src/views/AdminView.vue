@@ -56,17 +56,22 @@
             <networkcomponent ></networkcomponent>
             
         </v-tab-item>
+        <v-tab-item>
+            <datacomponent></datacomponent>
+        </v-tab-item>
       </v-tabs-items>
     </v-card>
   </template>
 
 <script>
+import datacomponent from "@/components/admin/dataplans.vue";
 import networkcomponent from "@/components/admin/networks.vue";
 
 export default {
     name: 'AdminView',
     components:{
-        networkcomponent
+        networkcomponent,
+        datacomponent
     },
     data:()=>({
         tab: null,

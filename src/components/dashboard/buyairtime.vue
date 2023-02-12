@@ -62,7 +62,7 @@
           class="bg-white pa-3 flex flex-col justify-center items-center gap-5"
         >
           <div
-            v-for="(network, i) in networksPack.filter((f)=> f.active)"
+            v-for="(network, i) in networksPack.filter((f)=> f.active == true)"
             :key="i"
             @click="SelectNetwork(network)"
             class="w-full px-2 py-3 border-2 rounded border-solid gap-2 hover:border-black flex items-center"

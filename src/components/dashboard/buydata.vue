@@ -48,7 +48,7 @@
       <v-sheet class="text-center" height="350px">
         <div class="bg-white pa-3 flex flex-col justify-center items-center gap-5">
           <div
-            v-for="(network, i) in networksPack"
+            v-for="(network, i) in networksPack.filter((f)=> f.active == true)"
             :key="i"
             @click="SelectNetwork(network)"
             class="w-full px-2 py-3 border-2 rounded border-solid gap-2 hover:border-black flex items-center"
@@ -67,7 +67,7 @@
       <v-sheet class="text-center overflow-y-scroll" height="550px">
         <div class="bg-white  pa-3 flex flex-col justify-center items-center gap-5">
           <div
-            v-for="(plan, i) in planlist"
+            v-for="(plan, i) in planlist.filter((f)=> f.active == true)"
             :key="i"
             @click="SelectPlan(plan)"
             class="w-full px-2 py-3 border-2 rounded border-solid gap-2 hover:border-black flex items-center"
