@@ -43,23 +43,30 @@
       >
         <p class="ma-0 pa-0 text-md text-center font-bold">Edit Network</p>
         <v-text-field
-          v-model.number="dform.name"
+          v-model.number="dform.Network"
           label="Network Name"
           outlined
           :rules="inputRules"
         >
         </v-text-field>
         <v-text-field
-          v-model.number="dform.id"
-          label="Network Id"
+          v-model.number="dform.planType"
+          label="Plan Type"
+          outlined
+          :rules="inputRules"
+        >
+        </v-text-field>
+        <v-text-field
+          v-model.number="dform.dataId"
+          label="Data Id"
           outlined
           type="number"
           :rules="inputRules2"
         >
         </v-text-field>
         <v-text-field
-          v-model.number="dform.img"
-          label="Network Img"
+          v-model="dform.Amount"
+          label="Data Price"
           outlined
           :rules="inputRules"
         >
