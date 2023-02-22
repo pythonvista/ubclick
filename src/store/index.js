@@ -14,6 +14,8 @@ export default new Vuex.Store({
     cables: [],
     cablesPlan: [],
     electricity: [],
+    epin: [],
+    meterType:['Prepaid', 'Postpaid']
   },
   getters: {},
   mutations: {
@@ -40,6 +42,9 @@ export default new Vuex.Store({
     Set_Electricity(state, payload){
       state.electricity = payload
     },
+    Set_Pin(state, payload){
+      state.epin = payload
+    },
   },
   actions: {
     ActiveUser({ commit }, payload) {
@@ -62,6 +67,9 @@ export default new Vuex.Store({
     },
     SetElectricity({ commit }, payload){
       commit("Set_Electricity", payload);
+    },
+    SetPin({ commit }, payload){
+      commit("Set_Pin", payload);
     },
 
 

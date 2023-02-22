@@ -1,16 +1,16 @@
 [
  {
-  "active": true,
+  "category": "","active": true,
    "CableID": 1,
    "CableName": "GOTV"
  },
  {
-  "active": true,
+  "category": "","active": true,
    "CableID": 2,
    "CableName": "DSTV"
  },
  {
-  "active": true,
+  "category": "","active": true,
    "CableID": 3,
    "CableName": "STARTIME"
  }

@@ -1,0 +1,20 @@
+[
+    {
+     "examid": 1,
+     "examName": "WAEC",
+     "amount": 2500,
+     "active": true   
+    },
+    {
+     "examid": 2,
+     "examName": "NECO",
+     "amount": 1800,
+     "active": true   
+    },
+    {
+     "examid": 3,
+     "examName": "NABTEB",
+     "amount": 2000,
+     "active": true   
+    }
+]

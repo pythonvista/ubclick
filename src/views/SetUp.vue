@@ -153,6 +153,7 @@
 import cableplans from "@/json_database/cableplans.json";
 import cables from "@/json_database/cables.json";
 import dataPacks from "@/json_database/dataplans.json";
+import epins from "@/json_database/educationpin.json";
 import electricity from "@/json_database/electricity.json";
 import network from "@/json_database/networks.json";
 import { snackbar } from "@/main";
@@ -211,6 +212,7 @@ export default {
          await this.Steps('Step 4', electricity, 'ELECTRICITY')
          await this.Steps('Step 5', cables, 'CABLES')
          await this.Steps('Step 6', cableplans, 'CABLESPLAN')
+         await this.Steps('Step 7', epins, 'EPIN')
          await apiClient("setup/finalsetup", "POST", {id: this.temp.userId, setUpProcess: true});
          this.progress = false
           this.dialog = false

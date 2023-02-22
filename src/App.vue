@@ -1,15 +1,15 @@
 <template>
   <v-app>
-    <div class="lg-screen xs:hidden mdx:block">desktop devices</div>
+    <div class="lg-screen xs:hidden mdx:block">desktop devices </div>
     <div class="mob-screen xs:block mdx:hidden">
       <v-main>
+       
         <router-view />
       </v-main>
       <v-snackbar v-model="snackbar" timeout="3000" :color="snackColor">
-        <div class="flex justify-between items-center px-3 py-1">
-          <p class="ma-0 pa-0 text-white font-bold">{{ snackText }}</p>
-
-          <v-btn color="blue" text @click="snackbar = false"> Close </v-btn>
+        <div class="flex justify-between items-center px-2">
+          <p class="ma-0 pa-0 text-white text-xl font-bold">{{ snackText }}</p>
+          <v-btn small color="blue" text @click="snackbar = false"> Close </v-btn>
         </div>
       </v-snackbar>
     </div>
@@ -55,6 +55,9 @@ export default {
         if (state == "electricity") {
           this.$store.dispatch("SetElectricity", data);
         }
+        if (state == "epin") {
+          this.$store.dispatch("SetPin", data);
+        }
       } catch (err) {
         console.log(err);
       }
@@ -66,6 +69,7 @@ export default {
         await this.GetStores('CABLES', 'cables' )
         await this.GetStores('CABLESPLAN', 'cableplan' )
         await this.GetStores('ELECTRICITY', 'electricity' )
+        await this.GetStores('EPIN', 'epin' )
       }catch(err){
         err
       }

@@ -5,6 +5,7 @@
         <p class="ma-0 pa-0 text-lg font-bold">{{ userData.fullname }}</p>
         <p class="ma-0 pa-0 text-sm">{{ userData.account }}</p>
       </div>
+      
       <v-btn @click="drawer = !drawer" text fab small
         ><img src="@/assets/img/menusvg.svg" alt=""
       /></v-btn>
@@ -194,7 +195,8 @@ export default {
         img: require("@/assets/img/bulb.png"),
       },
       {
-        title: "Education Pin",
+        title: "Result Checker",
+        url: 'ResultChecker',
         img: require("@/assets/img/airtime.png"),
       },
       {
@@ -225,6 +227,7 @@ export default {
     Goto(url){
       this.$router.push({name: url})
     },
+    
     LogOut(){
       this.$store.dispatch('RemoveUser', '')
       this.$router.push({path: '/'})

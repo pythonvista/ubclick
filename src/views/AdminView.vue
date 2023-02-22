@@ -59,19 +59,34 @@
         <v-tab-item>
             <datacomponent></datacomponent>
         </v-tab-item>
+        <v-tab-item>
+            <cables></cables>
+        </v-tab-item>
+        <v-tab-item>
+           <cablesplan></cablesplan>
+        </v-tab-item>
+        <v-tab-item>
+           <electricity></electricity>
+        </v-tab-item>
       </v-tabs-items>
     </v-card>
   </template>
 
 <script>
+import cables from "@/components/admin/cables.vue";
+import cablesplan from "@/components/admin/cablesplan.vue";
 import datacomponent from "@/components/admin/dataplans.vue";
+import electricity from "@/components/admin/electricity.vue";
 import networkcomponent from "@/components/admin/networks.vue";
 
 export default {
     name: 'AdminView',
     components:{
         networkcomponent,
-        datacomponent
+        datacomponent,
+        electricity,
+        cables,
+        cablesplan 
     },
     data:()=>({
         tab: null,
