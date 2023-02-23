@@ -8,7 +8,7 @@
       </v-main>
       <v-snackbar v-model="snackbar" timeout="3000" :color="snackColor">
         <div class="flex justify-between items-center px-2">
-          <p class="ma-0 pa-0 text-white text-xl font-bold">{{ snackText }}</p>
+          <p class="ma-0 pa-0 text-white text-md font-bold">{{ snackText }}</p>
           <v-btn small color="blue" text @click="snackbar = false"> Close </v-btn>
         </div>
       </v-snackbar>

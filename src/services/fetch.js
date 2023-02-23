@@ -1,4 +1,4 @@
-// const url = 'http://localhost:3000/'
+// const url = 'http://192.168.8.101:3000/'
 const url = 'https://ubclick.onrender.com/'
 
 async function apiClient(route, method, body){

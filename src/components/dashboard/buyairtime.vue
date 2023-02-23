@@ -119,13 +119,15 @@ export default {
       if (this.$refs.form.validate()) {
         this.loading = true;
         try {
-          const res = await apiClient('airtime', 'POST', {...this.dform, userid: this.activeUser})
+          const res = await apiClient('airtime', 'POST', {...this.dform, uid: this.activeUser})
           const data = await res.json()
-          if(data.status != 'error'){
+          console.log(data)
+          if(data.status == 'error'){
+          throw {msg: data.msg, err: data.err}
+          }
+          if(data.status == 'success'){
             snackbar.$emit('open', { color: 'success', text: data.msg})
             this.$router.push({name: 'Dashboard'})
-          }else{
-            throw data
           }
           this.loading = false
         } catch (err) {
@@ -133,7 +135,7 @@ export default {
           if(err.msg){
             snackbar.$emit('open', { color: 'error', text: err.msg})
           }else{
-            snackbar.$emit('open', { color: 'error', text: err})
+            snackbar.$emit('open', { color: 'error', text: 'Error Occurred'})
           }
           
         }

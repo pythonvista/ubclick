@@ -133,6 +133,8 @@ export default {
           snackbar.$emit('open', { color: 'error', text: 'invalid iuc name'})
         }
       } catch (err) {
+        console.log(err)
+        alert(err)
         this.loading = false
         snackbar.$emit('open', { color: 'error', text: 'Error Occured'})
       }
