@@ -1,4 +1,4 @@
-// const url = 'http://192.168.8.101:3000/'
+// const url = 'http://192.168.8.102:3000/'
 const url = 'https://ubclick.onrender.com/'
 
 async function apiClient(route, method, body){
@@ -40,4 +40,10 @@ async function apiClient(route, method, body){
     }
 }
 
-export { apiClient };
+function GenerateRef(channel){
+  let ref = 'T' + Math.floor(Math.random() * 1288904037)
+ let createdAt = new Date()
+  return {transref: ref, channel: channel, createdAt: createdAt}
+}
+
+export { apiClient, GenerateRef };

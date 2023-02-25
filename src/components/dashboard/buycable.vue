@@ -34,18 +34,39 @@
         label="Smart Card"
         outlined
       ></v-text-field>
-      <v-text-field outlined  label="Iuc Name" readonly v-if="dform.iucName" v-model="dform.iucName"></v-text-field>
-      <v-btn v-if="dform.iucName" :loading="loading" @click="BuyCable" class="white--text" large depressed color="#000933">
+      <v-text-field
+        outlined
+        label="Iuc Name"
+        readonly
+        v-if="dform.iucName"
+        v-model="dform.iucName"
+      ></v-text-field>
+      <v-btn
+        v-if="dform.iucName"
+        :loading="loading"
+        @click="BuyCable"
+        class="white--text"
+        large
+        depressed
+        color="#000933"
+      >
         Buy Cable
       </v-btn>
-      <v-btn v-else  :loading="loading" large depressed color="black" class="white--text" @click="ValidateIuc">Validate Iuc Number</v-btn>
-     
-
+      <v-btn
+        v-else
+        :loading="loading"
+        large
+        depressed
+        color="black"
+        class="white--text"
+        @click="ValidateIuc"
+        >Validate Iuc Number</v-btn
+      >
     </div>
     <v-bottom-sheet v-model="sCables">
       <v-sheet class="text-center" height="350px">
         <div
-          v-for="(cab, i) in cables.filter((v)=> v.active == true )"
+          v-for="(cab, i) in cables.filter((v) => v.active == true)"
           :key="i"
           class="bg-white pa-3 flex flex-col justify-center items-center gap-5"
         >
@@ -61,7 +82,7 @@
     <v-bottom-sheet v-model="sCablesplan">
       <v-sheet class="text-center overflow-y-scroll" height="650px">
         <div
-          v-for="(cab, i) in allCablePlans.filter((v)=> v.active == true )"
+          v-for="(cab, i) in allCablePlans.filter((v) => v.active == true)"
           :key="i"
           class="bg-white pa-3 flex flex-col justify-center items-center gap-5"
         >
@@ -83,7 +104,10 @@
 import { mapState } from "vuex";
 
 import { snackbar } from "@/main";
-import { apiClient } from "@/services/fetch";
+import {
+  apiClient,
+  GenerateRef,
+} from "@/services/fetch";
 
 export default {
   name: "buycable",
@@ -93,10 +117,10 @@ export default {
     sCablesplan: false,
     dform: {
       network: "",
-      iucName: ""
+      iucName: "",
     },
     loading: false,
-    allCablePlans: []
+    allCablePlans: [],
   }),
   methods: {
     OpenCable() {
@@ -105,7 +129,7 @@ export default {
     SelectCable(cable) {
       this.dform.CableName = cable.CableName;
       this.dform.CableplanName = "";
-      this.dform.iucName = ""
+      this.dform.iucName = "";
       this.dform.CableID = cable.CableID;
       this.allCablePlans = this.cablesPlan.filter(
         (i) => i.category.toLowerCase() == cable.CableName.toLowerCase()
@@ -121,27 +145,31 @@ export default {
       this.sCablesplan = false;
     },
     async ValidateIuc() {
-      this.loading = true
+      this.loading = true;
       try {
-        const res = await apiClient(`cables/validate?iucNumber=${this.dform.iuc}&cableName=${this.dform.CableName}`, 'GET')
-        const data = await res.json()
-        if(data.invalid == false){
-          this.loading = false
-          this.dform.iucName = data.name
-        }else{
-          this.loading = false
-          snackbar.$emit('open', { color: 'error', text: 'invalid iuc name'})
+        const res = await apiClient(
+          `cables/validate?iucNumber=${this.dform.iuc}&cableName=${this.dform.CableName}`,
+          "GET"
+        );
+        const data = await res.json();
+        if (data.invalid == false) {
+          this.loading = false;
+          this.dform.iucName = data.name;
+        } else {
+          this.loading = false;
+          snackbar.$emit("open", { color: "error", text: "invalid iuc name" });
         }
       } catch (err) {
-        console.log(err)
-        alert(err)
-        this.loading = false
-        snackbar.$emit('open', { color: 'error', text: 'Error Occured'})
+        console.log(err);
+        alert(err);
+        this.loading = false;
+        snackbar.$emit("open", { color: "error", text: "Error Occured" });
       }
     },
-    async BuyCable(){
-      this.loading = true
-      try{
+    async BuyCable() {
+      this.loading = true;
+      let refs = GenerateRef("Cable");
+      try {
         let data = {
           cableID: this.dform.CableID,
           cablePlanId: this.dform.plan.CableplanID,
@@ -150,53 +178,44 @@ export default {
           iuc: this.dform.iuc,
           IucAccName: this.dform.iucName,
           uid: this.activeUser,
-          amount: this.dform.plan.amount
+          amount: this.dform.plan.amount,
+          transref: refs.transref,
+          channel: refs.channel,
+          createdAt: refs.createdAt,
+        };
+        const res = await apiClient("cables/buy", "POST", data);
+        const response = await res.json();
+        this.loading = false;
+        if (response.status == "error") {
+          throw { msg: response.msg, err: response.err };
         }
-        const res = await apiClient('cables/buy', 'POST', data)
-        const response = await res.json()
-        this.loading = false
-        if(response.status == 'error'){
-          throw {msg: response.msg, err: response.err}
+        if (response.status == "success") {
+          snackbar.$emit("open", { color: "success", text: response.msg });
         }
-        if(response.status == 'success'){
-          snackbar.$emit('open', { color: 'success', text: response.msg})
-        }
-      }catch(err){
-        this.loading = false
-        snackbar.$emit('open', { color: 'error', text: err.msg})
+      } catch (err) {
+        this.loading = false;
+        snackbar.$emit("open", { color: "error", text: err.msg });
       }
-    }
+    },
   },
-  created() {
-    // if (this.cables) {
-    //   this.cables.forEach((v) => {
-    //     this.allCables.push(v.CableName);
-    //   });
-    // }
-    // if (this.cablesPlan) {
-    //   this.cablesPlan.forEach((e) => {
-    //     this.allCablePlansitems.push(e.CableplanName);
-    //   });
-    //   this.allCablePlans = this.cablesPlan;
-    // }
-  },
+  created() {},
   computed: {
     ...mapState(["cables", "cablesPlan", "activeUser"]),
-    allCables(){
-      let all = []
+    allCables() {
+      let all = [];
       this.cables.forEach((v) => {
         all.push(v.CableName);
       });
 
-      return all
+      return all;
     },
-    allCablePlansitems(){
-      let all = []
+    allCablePlansitems() {
+      let all = [];
       this.cablesPlan.forEach((e) => {
         all.push(e.CableplanName);
       });
 
-      return all
+      return all;
     },
   },
 };

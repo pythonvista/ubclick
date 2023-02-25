@@ -74,7 +74,10 @@
 import { mapState } from "vuex";
 
 import { snackbar } from "@/main";
-import { apiClient } from "@/services/fetch";
+import {
+  apiClient,
+  GenerateRef,
+} from "@/services/fetch";
 
 export default {
   name: "ResultChecker",
@@ -103,12 +106,16 @@ export default {
       if (this.$refs.form.validate()) {
         this.loading = true;
         try {
+          let refs = GenerateRef("Epin");
           let data = {
             exam_name: this.dform.examName,
             quantity: this.dform.quantity,
             exam_price: this.dform.examAmount,
             amount: this.TotalAmount,
             uid: this.activeUser,
+            transref: refs.transref,
+            channel: refs.channel,
+            createdAt: refs.createdAt
           };
           let res = await apiClient("buyepin", "POST", data);
           let response = await res.json();
@@ -121,7 +128,7 @@ export default {
           }
         } catch (err) {
           this.loading = false;
-          snackbar.$emit('open', { color: 'error', text: err.msg})
+          snackbar.$emit("open", { color: "error", text: err.msg });
         }
       }
     },

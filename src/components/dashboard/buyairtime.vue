@@ -82,7 +82,10 @@
 import { mapState } from "vuex";
 
 import { snackbar } from "@/main";
-import { apiClient } from "@/services/fetch";
+import {
+  apiClient,
+  GenerateRef,
+} from "@/services/fetch";
 
 export default {
   name: "buyairtime",
@@ -119,7 +122,14 @@ export default {
       if (this.$refs.form.validate()) {
         this.loading = true;
         try {
-          const res = await apiClient('airtime', 'POST', {...this.dform, uid: this.activeUser})
+          let refs = GenerateRef('Airtime')
+          const res = await apiClient('airtime', 'POST', {
+            ...this.dform,
+             uid: this.activeUser,
+             transref: refs.transref,
+            channel: refs.channel,
+            createdAt: refs.createdAt
+            })
           const data = await res.json()
           console.log(data)
           if(data.status == 'error'){

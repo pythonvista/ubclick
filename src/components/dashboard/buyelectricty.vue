@@ -100,7 +100,10 @@
 import { mapState } from "vuex";
 
 import { snackbar } from "@/main";
-import { apiClient } from "@/services/fetch";
+import {
+  apiClient,
+  GenerateRef,
+} from "@/services/fetch";
 
 export default {
   name: "buycable",
@@ -108,6 +111,7 @@ export default {
     tab: null,
     discos: false,
     loading: false,
+    
     dform: {
       meterTypeId: 1
     },
@@ -159,6 +163,10 @@ export default {
           this.dform['meterTypeId'] = 2
           this.dform['uid'] = this.activeUser
         }
+        let refs = GenerateRef("Electricity");
+        this.dform['transref'] = refs.transref
+        this.dform['channel'] = refs.channel
+        this.dform['createdAt'] = refs.createdAt
         this.loading = true
         const res = await apiClient('electricity/buy', 'POST', this.dform)
         const response = await res.json()
