@@ -150,6 +150,7 @@
 </template>
 
 <script>
+import atc from "@/json_database/atcnumbers.json";
 import cableplans from "@/json_database/cableplans.json";
 import cables from "@/json_database/cables.json";
 import dataPacks from "@/json_database/dataplans.json";
@@ -177,7 +178,10 @@ export default {
       try {
         const res = await apiClient("setup", "GET");
         const data = await res.json();
-        this.Admin = data[0];
+        if(data.length > 0){
+          this.Admin = data[0];
+         
+        }
         this.AllowSetup();
       } catch (err) {
         console.log(err);
@@ -213,6 +217,7 @@ export default {
          await this.Steps('Step 5', cables, 'CABLES')
          await this.Steps('Step 6', cableplans, 'CABLESPLAN')
          await this.Steps('Step 7', epins, 'EPIN')
+         await this.Steps('Step 7', atc, 'ATC')
          await apiClient("setup/finalsetup", "POST", {id: this.temp.userId, setUpProcess: true});
          this.progress = false
           this.dialog = false

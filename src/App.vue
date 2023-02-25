@@ -31,7 +31,7 @@ export default {
       if (user) {
         this.$store.dispatch("ActiveUser", user);
       } else {
-        this.$store.dispatch("RemoverUser");
+        this.$store.dispatch("RemoveUser");
       }
     },
     async GetStores(collection, state) {
@@ -58,6 +58,9 @@ export default {
         if (state == "epin") {
           this.$store.dispatch("SetPin", data);
         }
+        if (state == "atc") {
+          this.$store.dispatch("SetAtc", data);
+        }
       } catch (err) {
         console.log(err);
       }
@@ -70,6 +73,7 @@ export default {
         await this.GetStores('CABLESPLAN', 'cableplan' )
         await this.GetStores('ELECTRICITY', 'electricity' )
         await this.GetStores('EPIN', 'epin' )
+        await this.GetStores('ATC', 'atc' )
       }catch(err){
         err
       }

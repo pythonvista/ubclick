@@ -62,7 +62,7 @@ import { snackbar } from "@/main";
 import { apiClient } from "@/services/fetch";
 
 export default {
-  name: "cable",
+  name: "electricity",
   computed: {
     ...mapState(["electricity"]),
   },

@@ -71,6 +71,18 @@ const routes = [
           import(/* webpackChunkName: "about" */ "@/components/dashboard/buyairtime.vue"),
       },
       {
+        path: "/account",
+        name: "AccountManager",
+        component: () =>
+          import(/* webpackChunkName: "about" */ "@/components/dashboard/account.vue"),
+      },
+      {
+        path: "/airtime-to-cash",
+        name: "AirtimeCash",
+        component: () =>
+          import(/* webpackChunkName: "about" */ "@/components/dashboard/airtimetocash.vue"),
+      },
+      {
         path: "/buy-cable",
         name: "BuyCable",
         component: () =>

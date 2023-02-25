@@ -61,7 +61,7 @@
             @click="SelectExam(exam)"
             class="w-full px-2 py-3 border-2 rounded border-solid gap-2 hover:border-black flex items-center"
           >
-            <img width="100" :src="exam.img" />
+            <img width="50" :src="exam.img" />
             <p class="ma-0 pa-0 font-bold text-lg">{{ exam.examName }}</p>
           </div>
         </div>

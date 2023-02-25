@@ -202,6 +202,7 @@ export default {
       {
         title: "Airtime to cash",
         img: require("@/assets/img/buydata.png"),
+        url: 'AirtimeCash',
       },
       {
         title: "Wallet Bonus",

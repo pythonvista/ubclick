@@ -68,15 +68,23 @@
         <v-tab-item>
            <electricity></electricity>
         </v-tab-item>
+        <v-tab-item>
+           <epinVue></epinVue>
+        </v-tab-item>
+        <v-tab-item>
+           <airtimetocash></airtimetocash>
+        </v-tab-item>
       </v-tabs-items>
     </v-card>
   </template>
 
 <script>
+import airtimetocash from "@/components/admin/airtimetocash.vue";
 import cables from "@/components/admin/cables.vue";
 import cablesplan from "@/components/admin/cablesplan.vue";
 import datacomponent from "@/components/admin/dataplans.vue";
 import electricity from "@/components/admin/electricity.vue";
+import epinVue from "@/components/admin/epin.vue";
 import networkcomponent from "@/components/admin/networks.vue";
 
 export default {
@@ -86,12 +94,14 @@ export default {
         datacomponent,
         electricity,
         cables,
-        cablesplan 
+        cablesplan,
+        epinVue,
+        airtimetocash
     },
     data:()=>({
         tab: null,
         items: [
-          'Hompage', 'Users Dashboard', 'Transactions', 'Network Settings', 'Dataplans Setting', 'Cables', 'Cables Plan','Electricity'
+          'Hompage', 'Users Dashboard', 'Transactions', 'Network Settings', 'Dataplans Setting', 'Cables', 'Cables Plan','Electricity', 'Epins','Airtime To Cash'
         ],
     })
 }
