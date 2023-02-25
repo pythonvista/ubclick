@@ -83,7 +83,7 @@ export default {
       if(this.$refs.form.validate()){
           try {
           this.loading = true
-          await apiClient("atc/add", "POST", {
+          await apiClient("store/update", "POST", {
             collection: "ATC",
             uid: this.dform.uid,
             data: this.dform,
