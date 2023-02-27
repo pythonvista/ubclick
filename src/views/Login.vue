@@ -11,7 +11,7 @@
         <v-text-field :rules="emailRules" v-model="dform.email" prepend-inner-icon="mdi-email" label="Email" background-color="white" solo flat  class="ma-0 elevation-0 pa-0"></v-text-field>
       </div>
       <div class="w-full ">
-        <v-text-field :rules="inputRules" v-model="dform.passwd" prepend-inner-icon="mdi-lock" label="Password" solo flat  class="ma-0 pa-0"></v-text-field>
+        <v-text-field :rules="inputRules" type="password" v-model="dform.passwd" prepend-inner-icon="mdi-lock" label="Password" solo flat  class="ma-0 pa-0"></v-text-field>
       </div>
       <div class=" w-full password_b">
         <v-checkbox depressed dense background-color="transparent"  class="ma-0 pa-0 "

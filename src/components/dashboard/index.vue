@@ -12,16 +12,16 @@
     </div>
 
     <div class="flex justify-center items-center w-full gap-2 my-3 py-3 px-1">
-      <div @click="WalletSumary"
+      <div 
         class="wallet pa-3 h-32 relative flex-1 flex justify-center items-start flex-col gap-1 rounded-lg shadow-md"
       >
         <img src="@/assets/img/wal.png" alt="">
         <div class="balance flex flex-col justify-center items-center gap-1">
           <p class="ma-0 pa-0 text-white text-sm">Wallet Balance</p>
-         <p class="text-white text-2xl font-bold  ma-0 pa-0">₦{{ userData.balance }}</p>
+         <p class="text-white text-2xl font-bold  ma-0 pa-0">₦{{ show ? new Intl.NumberFormat().format( userData.balance) : ' xxxxxx' }} <v-icon @click="show = !show" color="white">{{ show ? 'mdi-eye' : 'mdi-eye-off' }}</v-icon></p>
         </div>
-
-        <span class="absolute ser_txt text-white top-3 right-2 ">Transaction History <v-icon small color="white"> mdi-arrow-right</v-icon></span>
+ 
+        <span @click="WalletSumary" class="absolute ser_txt text-white top-3 right-2 ">Wallet History <v-icon small color="white"> mdi-arrow-right</v-icon></span>
       
       </div>
      
@@ -114,8 +114,8 @@
       </v-speed-dial>
     </div> -->
 
-    <v-navigation-drawer v-model="drawer"  absolute temporary>
-      <div class="bg-priblue h-full " >
+    <v-navigation-drawer v-model="drawer" class="z-1"  absolute temporary>
+      <div class="bg-priblue h-full" >
       <v-list-item class="py-5">
         <v-list-item-avatar size="3rem">
           <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
@@ -169,6 +169,7 @@ export default {
     fling: false,
     hover: false,
     tabs: null,
+    show: false,
     top: false,
     right: true,
     bottom: true,

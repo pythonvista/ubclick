@@ -20,7 +20,7 @@
         <v-text-field v-model="dform.referal" prepend-inner-icon="mdi-account-plus" label="Referal Username[optional]" solo flat class="ma-0 pa-0"></v-text-field>
       </div>
       <div class="w-full ">
-        <v-text-field :rules="inputRules"  v-model="dform.passwd" prepend-inner-icon="mdi-lock" label="Password" solo flat class="ma-0 pa-0"></v-text-field>
+        <v-text-field type="password" :rules="inputRules"  v-model="dform.passwd" prepend-inner-icon="mdi-lock" label="Password" solo flat class="ma-0 pa-0"></v-text-field>
       </div>
             
       <v-btn @click="Register" depressed  :loading="loading" color="black" class="w-full login_btn mt-2">Sign Up</v-btn>

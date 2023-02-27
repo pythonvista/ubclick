@@ -15,33 +15,7 @@
       </v-snackbar>
       
     </div>
-    <v-bottom-navigation
-        :value="value"
-        color="teal"
-        grow
-        class="meto"
-      >
-        <v-btn>
-          <span>Home</span>
-          <img src="@/assets/img/home.png" alt="" />
-         
-        </v-btn>
-
-        <v-btn>
-          <span>Transactions</span>
-
-          <img src="@/assets/img/trans.png" alt="" />
-        </v-btn>
-
-        <v-btn>
-          <span>Faqs</span>
-          <img src="@/assets/img/faq.png" alt="" />
-        </v-btn>
-        <v-btn>
-          <span>Settings</span>
-          <img src="@/assets/img/settings.png" alt="" />
-        </v-btn>
-    </v-bottom-navigation>
+    
   </v-app>
 </template>
 
@@ -129,7 +103,6 @@ export default {
 
 <style scoped>
 .apps{
-  border: 2px solid red;
 }
 
 .meto{
