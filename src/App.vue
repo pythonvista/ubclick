@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="apps">
     <div class="lg-screen xs:hidden mdx:block">desktop devices</div>
     <div class="mob-screen  xs:block mdx:hidden">
       <v-main>
@@ -13,29 +13,35 @@
           </v-btn>
         </div>
       </v-snackbar>
-      <v-bottom-navigation
+      
+    </div>
+    <v-bottom-navigation
         :value="value"
         color="teal"
         grow
+        class="meto"
       >
         <v-btn>
-          <img src="@/assets/img/home.png" alt="" />
           <span>Home</span>
+          <img src="@/assets/img/home.png" alt="" />
+         
         </v-btn>
 
         <v-btn>
-          <span>Favorites</span>
+          <span>Transactions</span>
 
-          <v-icon>mdi-heart</v-icon>
+          <img src="@/assets/img/trans.png" alt="" />
         </v-btn>
 
         <v-btn>
-          <span>Nearby</span>
-
-          <v-icon>mdi-map-marker</v-icon>
+          <span>Faqs</span>
+          <img src="@/assets/img/faq.png" alt="" />
         </v-btn>
-      </v-bottom-navigation>
-    </div>
+        <v-btn>
+          <span>Settings</span>
+          <img src="@/assets/img/settings.png" alt="" />
+        </v-btn>
+    </v-bottom-navigation>
   </v-app>
 </template>
 
@@ -122,7 +128,14 @@ export default {
 </script>
 
 <style scoped>
-.dapp{
-  height:  100vh !important;
+.apps{
+  border: 2px solid red;
+}
+
+.meto{
+  position: fixed !important;
+  bottom: 0;
+  left: 0;
+  width: 100% !important;
 }
 </style>

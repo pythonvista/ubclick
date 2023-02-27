@@ -11,19 +11,20 @@
       /></v-btn>
     </div>
 
-    <div class="flex justify-between w-full gap-2 my-3 py-3 px-1">
+    <div class="flex justify-center items-center w-full gap-2 my-3 py-3 px-1">
       <div @click="WalletSumary"
-        class="bg-prigreen wallet pa-3 flex-1 flex justify-center items-start flex-col gap-1 rounded-md shadow-sm"
+        class="wallet pa-3 h-32 relative flex-1 flex justify-center items-start flex-col gap-1 rounded-lg shadow-md"
       >
-        <v-icon color="white">mdi-wallet</v-icon>
-        <p class="ma-0 pa-0 text-white text-sm">Wallet Balance</p>
-        <p class="text-white text-lg ma-0 pa-0">₦{{ userData.balance }}</p>
+        <img src="@/assets/img/wal.png" alt="">
+        <div class="balance flex flex-col justify-center items-center gap-1">
+          <p class="ma-0 pa-0 text-white text-sm">Wallet Balance</p>
+         <p class="text-white text-2xl font-bold  ma-0 pa-0">₦{{ userData.balance }}</p>
+        </div>
+
+        <span class="absolute ser_txt text-white top-3 right-2 ">Transaction History <v-icon small color="white"> mdi-arrow-right</v-icon></span>
+      
       </div>
-      <div class="bg-priblue bonus pa-3 flex-1 gap-1 rounded-md shadow-sm">
-        <v-icon color="white">mdi-wallet</v-icon>
-        <p class="ma-0 pa-0 text-white text-sm">Bonus Balance</p>
-        <p class="text-white text-lg ma-0 pa-0">₦{{ userData.bonusBalance }}</p>
-      </div>
+     
     </div>
 
     <div
@@ -72,11 +73,11 @@
         class="flex flex-col gap-1 justify-center mt-3 text-center items-center"
       >
         <div @click="Goto(i.url)"
-          class="flex justify-center h-16 w-16  items-center rounded pa-4 hover:bg-white hover:shadow-lg bg-lightgreen"
+          class="flex justify-center h-14 w-14  items-center rounded pa-4 hover:bg-white hover:shadow-lg bg-lightgreen"
         >
           <img :src="i.img" alt="" />
         </div>
-        <p class="ma-0 pa-0 text-xs  text-black">{{ i.title }}</p>
+        <p class="ma-0 pa-0  ser_txt  text-black">{{ i.title }}</p>
       </div>
     </div>
 
@@ -197,7 +198,7 @@ export default {
       },
       
       {
-        title: "Result Checker",
+        title: "Scratch Card",
         url: 'ResultChecker',
         img: require("@/assets/img/epin.png"),
       },
@@ -207,12 +208,12 @@ export default {
         url: 'AirtimeCash',
       },
       {
-        title: "Wallet Bonus",
+        title: "Bonus",
         img: require("@/assets/img/wallet.png"),
         url: 'WalletBonus',
       },
       {
-        title: "Customer Service",
+        title: "Chat",
         img: require("@/assets/img/buydata.png"),
         url: 'WalletBonus',
       },
@@ -263,8 +264,6 @@ export default {
 
 <style scoped>
 .wrap {
-  background: #e5e5e5;
-  min-height: 100vh;
 }
 .listss{
   overflow-y: scroll;
@@ -275,10 +274,22 @@ export default {
 .wallet {
   width: 50% !important;
   flex: 50% !important;
+  background: #04DF85 !important;
 }
 .bonus {
   width: 50% !important;
   flex: 50% !important;
+}
+.ser_txt{
+  font-size: .5rem;
+  font-weight:bold ;
+}
+
+.balance{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 #create .v-speed-dial {
   position: absolute;
