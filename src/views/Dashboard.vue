@@ -4,32 +4,7 @@
   </div>
   <div v-else>
     <router-view :userData="userData" />
-    <v-bottom-navigation
-        :value="value"
-        color="teal"
-        grow
-        class="meto"
-      >
-        <v-btn :to="{path: '/'}">
-          <span>Home</span>
-          <img src="@/assets/img/home.png" alt="" />
-         
-        </v-btn>
-
-        <v-btn :to="{path: 'transactions'}">
-          <span>Transactions</span>
-          <img src="@/assets/img/trans.png" alt="" />
-        </v-btn>
-
-        <v-btn>
-          <span>Faqs</span>
-          <img src="@/assets/img/faq.png" alt="" />
-        </v-btn>
-        <v-btn>
-          <span>Settings</span>
-          <img src="@/assets/img/settings.png" alt="" />
-        </v-btn>
-    </v-bottom-navigation>
+   
   </div>
  
 </template>

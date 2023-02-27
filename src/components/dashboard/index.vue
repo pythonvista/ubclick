@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap py-3 px-3 relative">
+  <div class="wrap py-3 px-3 relative overflow-y-scroll">
     <div class="flex justify-between w-full px-3 py-2">
       <div class="flex flex-col justify-center items-start">
         <p class="ma-0 pa-0 text-lg font-bold">{{ userData.fullname }}</p>
@@ -154,6 +154,32 @@
       </v-list>
     </div>
     </v-navigation-drawer>
+    <v-bottom-navigation
+        :value="value"
+        color="teal"
+        grow
+        class="meto"
+      >
+        <v-btn :to="{path: '/'}">
+          <span>Home</span>
+          <img src="@/assets/img/home.png" alt="" />
+         
+        </v-btn>
+
+        <v-btn :to="{path: 'transactions'}">
+          <span>Transactions</span>
+          <img src="@/assets/img/trans.png" alt="" />
+        </v-btn>
+
+        <v-btn>
+          <span>Faqs</span>
+          <img src="@/assets/img/faq.png" alt="" />
+        </v-btn>
+        <v-btn>
+          <span>Settings</span>
+          <img src="@/assets/img/settings.png" alt="" />
+        </v-btn>
+    </v-bottom-navigation>
    
   </div>
 </template>
@@ -284,6 +310,12 @@ export default {
 .ser_txt{
   font-size: .5rem;
   font-weight:bold ;
+}
+.meto{
+  position: fixed !important;
+  bottom: 0;
+  left: 0;
+  width: 100% !important;
 }
 
 .balance{
