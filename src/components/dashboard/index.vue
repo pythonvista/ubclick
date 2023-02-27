@@ -155,8 +155,6 @@
     </div>
     </v-navigation-drawer>
     <v-bottom-navigation
-        :value="value"
-        color="teal"
         grow
         class="meto"
       >
@@ -166,7 +164,7 @@
          
         </v-btn>
 
-        <v-btn :to="{path: 'transactions'}">
+        <v-btn :to="{name: 'Transactions'}">
           <span>Transactions</span>
           <img src="@/assets/img/trans.png" alt="" />
         </v-btn>
@@ -190,7 +188,7 @@ export default {
   props: ['userData'],
   data: () => ({
     direction: "top",
-    value: 1,
+    value: 0,
     fab: false,
     fling: false,
     hover: false,
