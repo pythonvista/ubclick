@@ -1,5 +1,5 @@
-const url = 'http://192.168.8.101:3000/'
-// const url = 'https://ubclick.onrender.com/'
+// const url = 'http://192.168.8.101:3000/'
+const url = 'https://ubclick.onrender.com/'
 
 async function apiClient(route, method, body){
     try {
