@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "xyz.appmaker.owkuga",
+      "sha256_cert_fingerprints": ["43:98:85:65:4A:11:7B:51:F3:D5:BC:F9:1A:D6:E9:64:C8:76:66:ED:9A:11:B6:D3:C4:6F:1D:FB:22:1E:9A:F0"]
+    }
+  }
+]
