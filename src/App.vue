@@ -1,17 +1,40 @@
 <template>
   <v-app>
-    <div class="lg-screen xs:hidden mdx:block">desktop devices </div>
-    <div class="mob-screen xs:block mdx:hidden">
+    <div class="lg-screen xs:hidden mdx:block">desktop devices</div>
+    <div class="mob-screen  xs:block mdx:hidden">
       <v-main>
-       
         <router-view />
       </v-main>
       <v-snackbar v-model="snackbar" timeout="3000" :color="snackColor">
         <div class="flex justify-between items-center px-2">
           <p class="ma-0 pa-0 text-white text-md font-bold">{{ snackText }}</p>
-          <v-btn small color="blue" text @click="snackbar = false"> Close </v-btn>
+          <v-btn small color="blue" text @click="snackbar = false">
+            Close
+          </v-btn>
         </div>
       </v-snackbar>
+      <v-bottom-navigation
+        :value="value"
+        color="teal"
+        grow
+      >
+        <v-btn>
+          <img src="@/assets/img/home.png" alt="" />
+          <span>Home</span>
+        </v-btn>
+
+        <v-btn>
+          <span>Favorites</span>
+
+          <v-icon>mdi-heart</v-icon>
+        </v-btn>
+
+        <v-btn>
+          <span>Nearby</span>
+
+          <v-icon>mdi-map-marker</v-icon>
+        </v-btn>
+      </v-bottom-navigation>
     </div>
   </v-app>
 </template>
@@ -39,7 +62,7 @@ export default {
         const res = await apiClient("store", "POST", {
           collection: collection,
         });
-        const data = await res.json()
+        const data = await res.json();
         if (state == "networks") {
           this.$store.dispatch("SetNetwork", data);
         }
@@ -66,16 +89,16 @@ export default {
       }
     },
     async RunGet() {
-      try{
-        await this.GetStores('NETWORKS', 'networks' )
-        await this.GetStores('DATAPACKS', 'datapacks' )
-        await this.GetStores('CABLES', 'cables' )
-        await this.GetStores('CABLESPLAN', 'cableplan' )
-        await this.GetStores('ELECTRICITY', 'electricity' )
-        await this.GetStores('EPIN', 'epin' )
-        await this.GetStores('ATC', 'atc' )
-      }catch(err){
-        err
+      try {
+        await this.GetStores("NETWORKS", "networks");
+        await this.GetStores("DATAPACKS", "datapacks");
+        await this.GetStores("CABLES", "cables");
+        await this.GetStores("CABLESPLAN", "cableplan");
+        await this.GetStores("ELECTRICITY", "electricity");
+        await this.GetStores("EPIN", "epin");
+        await this.GetStores("ATC", "atc");
+      } catch (err) {
+        err;
       }
     },
   },
@@ -87,12 +110,19 @@ export default {
       this.snackbar = true;
     });
     this.checkUser();
-    this.RunGet()
+    this.RunGet();
   },
   data: () => ({
     snackbar: false,
     snackText: "",
     snackColor: "",
+    value: 1,
   }),
 };
 </script>
+
+<style scoped>
+.dapp{
+  height:  100vh !important;
+}
+</style>

@@ -34,7 +34,6 @@
         outlined
       ></v-text-field>
       <v-text-field
-        :rules="inputRules2"
         :value="AmountRecieved"
         prepend-inner-icon="₦"
         label="You will receive"
@@ -58,12 +57,12 @@
       ></v-text-field>
 
       <v-btn
-        :loading="loading"
+       
         class="white--text"
         large
         depressed
         color="#000933"
-        @click="proceed = !proceed"
+        @click="Proceed"
       >
         Procced
       </v-btn>
@@ -111,15 +110,16 @@
           <br />
 
           Transfer through Transfer Code: Press: *432 * 1 Input the phone number
-          you want to transfer to <span class="text-red-500 font-bold">({{ dform.atcNumber }})</span>. Input the amount
-          involve ₦{{ dform.amount }}
+          you want to transfer to
+          <span class="text-red-500 font-bold">({{ dform.atcNumber }})</span>.
+          Input the amount involve ₦{{ dform.amount }}
         </p>
 
         <p class="ma-0 pa-0 text-center">
           <span class="text-xl mb-3 font-bold text-red">NOTE</span> <br />
           Ensure you have seent airtime into the Number above before clicking on
-          airtime sent. Also, you must send exactly ₦{{ dform.amount }} Airtime within 30
-          minutes or this transaction will be cancelled. <br />
+          airtime sent. Also, you must send exactly ₦{{ dform.amount }} Airtime
+          within 30 minutes or this transaction will be cancelled. <br />
           Confirmation is instant and payment is automated usually within
           5-30mins. Also note that to send to us, you need to send from your
           personal sim . <br />
@@ -131,11 +131,14 @@
         </p>
 
         <div class="w-full mt-4 flex justify-center items-center gap-5">
-          <v-btn @click="Confirm" tile color="blue" class="white--text">Confirm</v-btn>
+          <v-btn  :loading="loading" @click="Confirm" tile color="blue" class="white--text"
+            >Confirm</v-btn
+          >
           <v-btn
             tile
             @click="proceed = !proceed"
             color="red"
+           
             class="white--text"
             >Cancel</v-btn
           >
@@ -148,8 +151,12 @@
 <script>
 import { mapState } from "vuex";
 
+import { snackbar } from "@/main";
 // import { snackbar } from "@/main";
-// import { apiClient } from "@/services/fetch";
+import {
+  apiClient,
+  GenerateRef,
+} from "@/services/fetch";
 
 export default {
   name: "Airtimetocash",
@@ -161,11 +168,10 @@ export default {
     dform: {
       percent: 0,
       amount: 0,
-      atcNumber: ""
+      atcNumber: "",
     },
     proceed: false,
     loading: false,
-    networklist: [],
   }),
   methods: {
     SelectAtc() {
@@ -173,15 +179,51 @@ export default {
       this.dform.percent = tempatc.percent;
       this.dform.atcNumber = tempatc.number;
     },
-   async Confirm(){
+    async Confirm() {
+      try {
+        this.loading = true;
+        let ref = GenerateRef("AirtimeToCash");
+        this.dform["transref"] = ref.transref;
+        this.dform["channel"] = ref.channel;
+        this.dform["createdAt"] = ref.createdAt;
+        const response = await apiClient("atc/place-order", "POST", {...this.dform, reciveAmount: this.AmountRecieved});
+        const res = await response.json()
+        if (res.status == "error") {
+          throw { msg: res.msg, err: res.err };
+        }
 
-    }
+        if (res.status == "success") {
+          snackbar.$emit("open", { color: "success", text: res.msg });
+          this.proceed = false 
+          this.loading = false
+        }
+      } catch (err) {
+        console.log(err)
+        this.loading = false;
+        snackbar.$emit("open", { color: "error", text: err.msg });
+      }
+    },
+    Proceed() {
+      if (this.$refs.form.validate()) {
+        this.proceed = true
+      }
+    },
   },
   computed: {
     ...mapState(["activeUser", "atc"]),
     AmountRecieved() {
       let amount = (this.dform.percent / 100) * this.dform.amount;
       return this.dform.amount - amount;
+    },
+    networklist() {
+      let temp = [];
+      this.atc.forEach((v) => {
+        if (v.active) {
+          temp.push(v.network);
+        }
+      });
+
+      return temp;
     },
   },
   created() {

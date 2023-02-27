@@ -185,7 +185,6 @@ export default {
           };
           const res = await apiClient("data", "POST", data);
           const response = await res.json();
-          console.log(response)
           this.loading = false
           if (response.status == "error") {
             throw { err: response, msg: response.msg };

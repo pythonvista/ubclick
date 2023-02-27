@@ -13,7 +13,7 @@
       <div class="grid grid-cols-1 gap-2 px-3">
         <div v-for="(trans,i) in walletTrans" :key="i">       
         <div v-if="CheckTrans(trans)" class="pa-3 flex justify-between border-2 rounded border-solid">
-          <p class="font-bold ma-0 pa-0">{{ trans.channel }} Top-Up</p>
+          <p class="font-bold ma-0 pa-0 capitalize">{{ trans.channel }} Top-Up</p>
           <p :class="{'bg-red-600 text-white': trans.status == 'pending', 'bg-green-600 text-white': trans.status == 'success'}" class="ma-0 pa-0 text-sm px-1 py-1 rounded">{{ trans.status }}</p>
           <p v-if="trans.mode == 'debit'" class="ma-0 text-red-700 pa-0 font-bold">{{ trans.mode == 'debit' ? '-' : '+'  }} {{ trans.amount }}</p>
           <p v-else class="ma-0 text-green-700 pa-0 font-bold">{{ trans.mode == 'debit' ? '-' : '+'  }} {{ trans.amount }}</p>
@@ -36,6 +36,7 @@ export default {
      async GetTransactions(){
       const res = await apiClient("store", "POST", {
           collection: 'WALLETTRANSACTIONS',
+          sort: "desc"
         });
         const data = await res.json()
         this.walletTrans = data

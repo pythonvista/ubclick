@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap py-3 px-2 relative">
+  <div class="wrap py-3 px-3 relative">
     <div class="flex justify-between w-full px-3 py-2">
       <div class="flex flex-col justify-center items-start">
         <p class="ma-0 pa-0 text-lg font-bold">{{ userData.fullname }}</p>
@@ -63,7 +63,7 @@
       </div>
     </div>
 
-    <p class="w-full text-left text-lg my-3 py-3 px-1 font-bold">Services</p>
+    <p class="w-full pa-0 ma-0 text-left text-lg my-1 py-2 px-1 font-bold">Services</p>
 
     <div class="grid grid-cols-4 place-items-center gap-1">
       <div
@@ -72,15 +72,19 @@
         class="flex flex-col gap-1 justify-center mt-3 text-center items-center"
       >
         <div @click="Goto(i.url)"
-          class="flex justify-center items-center rounded pa-4 hover:bg-white hover:shadow-lg bg-lightgreen"
+          class="flex justify-center h-16 w-16  items-center rounded pa-4 hover:bg-white hover:shadow-lg bg-lightgreen"
         >
           <img :src="i.img" alt="" />
         </div>
-        <p class="ma-0 pa-0 text-xs">{{ i.title }}</p>
+        <p class="ma-0 pa-0 text-xs  text-black">{{ i.title }}</p>
       </div>
     </div>
-    <div class="pa-3 fixed bottom-0 right-0">
-      <!-- <v-btn color="green" fab><img src="@/assets/img/subway_menu.svg" alt=""></v-btn> -->
+
+    <div class="flex w-full justify-center items-center my-2 pa-3">
+      <img class="w-full h-full object-cover " src="@/assets/img/refer.png" alt="">
+    </div>
+    <!-- <div class="pa-3 fixed bottom-0 right-0">
+     
       <v-speed-dial 
         v-model="fab"
         :top="top"
@@ -107,7 +111,7 @@
           <v-icon>mdi-delete</v-icon>
         </v-btn>
       </v-speed-dial>
-    </div>
+    </div> -->
 
     <v-navigation-drawer v-model="drawer"  absolute temporary>
       <div class="bg-priblue h-full " >
@@ -135,7 +139,7 @@
         </v-list-item>
 
 
-        <v-list-item v-for="item in items" class="mx-4 mb-2 flex items-center gap-3" :key="item.title" link>
+        <v-list-item v-for="item in items" :to="{name: item.url}" class="mx-4 mb-2 flex items-center gap-3" :key="item.title" link>
             <v-icon color="white">{{ item.icon }}</v-icon>
             <v-list-item-title  class="text-white">{{ item.title }}</v-list-item-title>
           
@@ -149,6 +153,7 @@
       </v-list>
     </div>
     </v-navigation-drawer>
+   
   </div>
 </template>
 
@@ -158,6 +163,7 @@ export default {
   props: ['userData'],
   data: () => ({
     direction: "top",
+    value: 1,
     fab: false,
     fling: false,
     hover: false,
@@ -185,42 +191,43 @@ export default {
         img: require("@/assets/img/cablesub.png"),
       },
       {
-        title: "Electricity",
+        title: "Bill Payment",
         url: 'BuyElectricity',
         img: require("@/assets/img/bulb.png"),
       },
-      {
-        title: "Recharge Pin",
-        url: 'ResultChecker',
-        img: require("@/assets/img/bulb.png"),
-      },
+      
       {
         title: "Result Checker",
         url: 'ResultChecker',
-        img: require("@/assets/img/airtime.png"),
+        img: require("@/assets/img/epin.png"),
       },
       {
         title: "Airtime to cash",
-        img: require("@/assets/img/buydata.png"),
+        img: require("@/assets/img/atc.png"),
         url: 'AirtimeCash',
       },
       {
         title: "Wallet Bonus",
-        img: require("@/assets/img/cablesub.png"),
+        img: require("@/assets/img/wallet.png"),
+        url: 'WalletBonus',
+      },
+      {
+        title: "Customer Service",
+        img: require("@/assets/img/buydata.png"),
+        url: 'WalletBonus',
       },
     ],
     items: [
-     
-      {title: 'Buy Data', type: 'dash', icon: 'mdi-network-strength-4'},
-      {title: 'Buy Airtime', type: 'dash', icon: 'mdi-card-account-phone-outline'},
-      {title: 'Buy Scratch Card', type: 'dash', icon: 'mdi-credit-card'},
-      {title: 'Utility Payment', type: 'dash', icon: 'mdi-lightbulb'},
-      {title: 'Fund Wallet', type: 'dash', icon: 'mdi-wallet'},
-      {title: 'Pricing', type: 'dash', icon: 'mdi-cash'},
-      {title: 'Account', type: 'dash', icon: 'mdi-account-circle'},
-      {title: 'Change Password', type: 'dash', icon: 'mdi-cog-outline'},
-      {title: 'Transaction Pin', type: 'dash', icon: 'mdi-shield-lock'},
-      {title: 'Settings', type: 'dash', icon: 'mdi-cog-outline'},
+      {title: 'Buy Data', type: 'dash', icon: 'mdi-network-strength-4', url: 'BuyData'},
+      {title: 'Buy Airtime', type: 'dash', icon: 'mdi-card-account-phone-outline', url: 'BuyData'},
+      {title: 'Buy Scratch Card', type: 'dash', icon: 'mdi-credit-card', url: 'ResultChecker'},
+      {title: 'Utility Payment', type: 'dash', icon: 'mdi-lightbulb', url: 'BuyElectricity'},
+      {title: 'Fund Wallet', type: 'dash', icon: 'mdi-wallet', url: 'FundWallet'},
+      // {title: 'Pricing', type: 'dash', icon: 'mdi-cash',},
+      {title: 'Account', type: 'dash', icon: 'mdi-account-circle', url: 'AccountManager'},
+      {title: 'Change Password', type: 'dash', icon: 'mdi-cog-outline', url: 'ChangePassword'},
+      // {title: 'Transaction Pin', type: 'dash', icon: 'mdi-shield-lock'},
+      {title: 'Settings', type: 'dash', icon: 'mdi-cog-outline', url: 'Seetings'},
 
     ],
   }),
