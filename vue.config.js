@@ -3,7 +3,7 @@ module.exports = defineConfig({
   transpileDependencies: ["vuetify"],
   pwa: {
     name: "UbClick",
-    themeColor: "#00DC48",
+    themeColor: "#5E153A",
     msTileColor: "#000000",
     iconPaths: {
       faviconSVG: "img/icons/favicon.svg",

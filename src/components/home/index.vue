@@ -4,7 +4,7 @@
         <p class="ma-0 pa-0 text-white text-2xl font-bold">Welcome to</p>
         <img src="@/assets/img/logo.png" alt="">
         <v-btn :to="{name: 'Login'}" large class="w-full btn" color="white">Login</v-btn>
-        <v-btn :to="{name: 'Register'}" large color="#00DC48" class="w-full btn " >Create an Account</v-btn>
+        <v-btn :to="{name: 'Register'}" large color="#5E153A" class="w-full white--text btn " >Create an Account</v-btn>
     </div>
 
   </div>

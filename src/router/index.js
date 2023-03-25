@@ -105,6 +105,24 @@ const routes = [
         name: "FundWallet",
         component: () =>
         import(/* webpackChunkName: "about" */ "@/components/dashboard/fundwallet.vue"),
+      },
+      {
+        path: "/settings",
+        name: "Settings",
+        component: () =>
+        import(/* webpackChunkName: "about" */ "@/components/dashboard/settings.vue"),
+      },
+      {
+        path: "/change-password",
+        name: "ChangePassword",
+        component: () =>
+        import(/* webpackChunkName: "about" */ "@/components/dashboard/changepass.vue"),
+      },
+      {
+        path: "/faq",
+        name: "Faq",
+        component: () =>
+        import(/* webpackChunkName: "about" */ "@/components/dashboard/faq.vue"),
       }
     ],
   },

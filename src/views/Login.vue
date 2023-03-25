@@ -1,7 +1,7 @@
 <template>
   <div class="login">
-    <div class="g-img flex justify-center items-center">
-      <img class="" src="@/assets/img/login.png" alt="" />
+    <div class="g-img flex relative justify-center items-center">
+      <img class="absolute bottom-0 log_img" src="@/assets/img/login.png" alt="" />
     </div>
     <v-form ref="form"
       class="login-box px-5 shadow-md flex flex-col items-center gap-2 justify-center"
@@ -21,7 +21,7 @@
       </div>
        
      
-      <v-btn :loading="loading" depressed @click="Login" color="black" class="w-full login_btn mt-2">Login</v-btn>
+      <v-btn :loading="loading" depressed @click="Login" color="#5E153A" class="w-full login_btn white--text mt-2">Login</v-btn>
         <v-btn x-small text :to="{name: 'Register'}" link  class="ma-0 pa-0 mt-2 text-black text-sm"> <p class="ma-0 pa-0 mt-2 text-black text-capitalize text-sm">Dont have an account? <span class="text-primary">Sign up</span></p></v-btn>
      
     </v-form>
@@ -85,9 +85,11 @@ export default {
   /* height: 45%; */
   min-height: 45vh;
 }
-.login_btn{
-    color: #06F354 !important;
+.log_img{
+  left: 50%;
+  transform: translateX(-50%);
 }
+
 
 .password_b .v-messages {
     color: rgba(0, 0, 0, 0.6);

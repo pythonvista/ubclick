@@ -23,7 +23,7 @@
         <v-text-field type="password" :rules="inputRules"  v-model="dform.passwd" prepend-inner-icon="mdi-lock" label="Password" solo flat class="ma-0 pa-0"></v-text-field>
       </div>
             
-      <v-btn @click="Register" depressed  :loading="loading" color="black" class="w-full login_btn mt-2">Sign Up</v-btn>
+      <v-btn @click="Register" depressed  :loading="loading" color="#5D153A" class="w-full white--text mt-2">Sign Up</v-btn>
         <v-btn x-small text :to="{name: 'Login'}" link  class="ma-0 pa-0 mt-2 text-black "><p class="font-bold text-capitalize ma-0 pa-0">Already have an account? <span class="text-primary">Sign in</span></p> </v-btn>
      
     </v-form>

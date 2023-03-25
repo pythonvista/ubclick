@@ -34,7 +34,7 @@
         class="py-1 hover:bg-slate-100 rounded flex flex-col items-center justify-center"
       >
         <v-btn :to="{path: '/fundwallet'}" color="transparent" small text class=""
-          ><img src="@/assets/img/fund-wallet.svg" alt=""
+          ><img src="@/assets/img/wallet.png" alt=""
         /></v-btn>
         <p class="pa-0 ma-0 text-xs font-medium">Fund Wallet</p>
       </div>
@@ -114,7 +114,7 @@
       </v-speed-dial>
     </div> -->
 
-    <v-navigation-drawer v-model="drawer" class="z-1"  absolute temporary>
+    <v-navigation-drawer  v-model="drawer" class="drawer"  absolute temporary>
       <div class="bg-priblue h-full" >
       <v-list-item class="py-5">
         <v-list-item-avatar size="3rem">
@@ -122,7 +122,7 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title class="text-white">{{ userData.fullname }}</v-list-item-title>
+          <v-list-item-title class="text-white ">{{ userData.fullname }}</v-list-item-title>
           <v-list-item-title  class="text-white">Balance: ₦{{ userData.balance }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -169,11 +169,11 @@
           <img src="@/assets/img/trans.png" alt="" />
         </v-btn>
 
-        <v-btn>
+        <v-btn :to="{name: 'Faq'}">
           <span>Faqs</span>
           <img src="@/assets/img/faq.png" alt="" />
         </v-btn>
-        <v-btn>
+        <v-btn :to="{name: 'Settings'}">
           <span>Settings</span>
           <img src="@/assets/img/settings.png" alt="" />
         </v-btn>
@@ -200,6 +200,7 @@ export default {
     left: false,
     transition: "slide-y-reverse-transition",
     drawer: false,
+
     services: [
       {
         title: "Buy Data",
@@ -239,7 +240,7 @@ export default {
       },
       {
         title: "Chat",
-        img: require("@/assets/img/buydata.png"),
+        img: require("@/assets/img/chat.png"),
         url: 'WalletBonus',
       },
     ],
@@ -253,11 +254,16 @@ export default {
       {title: 'Account', type: 'dash', icon: 'mdi-account-circle', url: 'AccountManager'},
       {title: 'Change Password', type: 'dash', icon: 'mdi-cog-outline', url: 'ChangePassword'},
       // {title: 'Transaction Pin', type: 'dash', icon: 'mdi-shield-lock'},
-      {title: 'Settings', type: 'dash', icon: 'mdi-cog-outline', url: 'Seetings'},
+      {title: 'Settings', type: 'dash', icon: 'mdi-cog-outline', url: 'Settings'},
 
     ],
+    botti: true
   }),
+
   methods:{
+    Test(){
+      alert('trans')
+    },
     Goto(url){
       this.$router.push({name: url})
     },
@@ -299,7 +305,7 @@ export default {
 .wallet {
   width: 50% !important;
   flex: 50% !important;
-  background: #04DF85 !important;
+  background: #5D153A !important;
 }
 .bonus {
   width: 50% !important;

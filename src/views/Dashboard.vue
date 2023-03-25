@@ -47,11 +47,6 @@ export default {
 
 <style  scoped>
 
-.meto{
-  position: fixed !important;
-  bottom: 0;
-  left: 0;
-  width: 100% !important;
-}
+
 
 </style>
