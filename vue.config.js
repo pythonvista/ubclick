@@ -21,5 +21,4 @@ module.exports = defineConfig({
     appleMobileWebAppStatusBarStyle: "black",
     // configure the workbox plugin
   },
-});s
-
+});
