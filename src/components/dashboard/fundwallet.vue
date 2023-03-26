@@ -1,15 +1,6 @@
 <template>
   <div class="wrap">
-    <div
-      class="navigator bg-white py-4 mb-9 px-3 w-full relative flex items-center"
-    >
-      <v-btn :to="{ name: 'Dashboard' }" fab text small class="z-10"
-        ><v-icon>mdi-arrow-left</v-icon></v-btn
-      >
-      <p class="ma-0 pa-0 text-center w-full absolute text-title">
-        Fund Wallet
-      </p>
-    </div>
+    <AppBar title="Fund Wallet"></AppBar>
     <div class="buy flex flex-col w-full gap-2 px-4">
       <v-select
         @click="OpenPayment()"
@@ -40,7 +31,7 @@
         class="white--text"
         large
         depressed
-        color="#000933"
+        color="#5D153A"
       >
         Fund Wallet
       </v-btn>
@@ -73,9 +64,14 @@ import { snackbar } from "@/main";
 // import { apiClient } from "@/services/fetch";
 import PaystackPop from "@paystack/inline-js";
 
+import AppBar from "../utils/AppBar.vue";
+
 export default {
   name: "buyairtime",
   props: ['userData'],
+  components: {
+    AppBar
+  },
   data: () => ({
     tab: null,
     paymentType: "",

@@ -1,7 +1,11 @@
 <template>
-   <div class="flex h-screen justify-center items-center" v-if="!userData.id">
+   <!-- <div class="flex h-screen justify-center items-center" >
     <v-skeleton-loader class="w-full"   type="list-item-avatar, divider, list-item-three-line, card-heading, image, actions"></v-skeleton-loader>
-  </div>
+  </div> -->
+
+  <div v-if="!userData.id" class="spinner around flex justify-center items-center w-full h-screen">
+        <img width="80"  src="@/assets/spinner.gif" alt="">
+      </div>
   <div v-else>
     <router-view :userData="userData" />
    

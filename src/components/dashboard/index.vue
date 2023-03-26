@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap py-3 px-3 relative overflow-y-scroll">
+  <div class="wrap py-3 px-3 relative pb-12  overflow-y-scroll">
     <div class="flex justify-between w-full px-3 py-2">
       <div class="flex flex-col justify-center items-start">
         <p class="ma-0 pa-0 text-lg font-bold">{{ userData.fullname }}</p>

@@ -20,7 +20,7 @@ module.exports = {
       transparent: colors.transparent,
       primary: '#5E153A',
       prigreen:'#02E44C',
-      priblue: '#000933',
+      priblue: '#5D153A',
       lightgreen: '#FFE8F4',
       slatepri: '#F4F3F3',
       black: colors.black,

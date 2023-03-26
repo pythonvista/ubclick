@@ -1,15 +1,7 @@
 <template>
   <div class="wrap">
-    <div
-      class="navigator bg-white py-4 mb-9 px-3 w-full relative flex items-center"
-    >
-      <v-btn :to="{ name: 'Dashboard' }" fab text small class="z-10"
-        ><v-icon>mdi-arrow-left</v-icon></v-btn
-      >
-      <p class="ma-0 pa-0 text-center w-full absolute text-title">
-        Account Management
-      </p>
-    </div>
+    
+    <AppBar title="Account Management"></AppBar>
     <v-form ref="form" class="buy flex flex-col w-full gap-2 px-4">
       <v-select outlined  :items="banks" label="Select Bank" :rules="inputRules" v-model="dform.bankName" ></v-select>
       <v-text-field
@@ -30,7 +22,7 @@
         class="white--text"
         large
         depressed
-        color="#000933"
+        color="#5D153A"
         @click="Update"
       >
         Update Account
@@ -45,9 +37,14 @@ import { mapState } from "vuex";
 import { snackbar } from "@/main";
 import { apiClient } from "@/services/fetch";
 
+import AppBar from "../utils/AppBar.vue";
+
 export default {
   name: "Account",
   props: ['userData'],
+  components: {
+    AppBar
+  },
   data: () => ({
     tab: null,
     inputRules: [(v) => (v && v.length >= 1) || "Field is required"],

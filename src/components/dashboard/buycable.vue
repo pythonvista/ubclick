@@ -1,15 +1,6 @@
 <template>
   <div class="wrap">
-    <div
-      class="navigator bg-white py-4 mb-9 px-3 w-full relative flex items-center"
-    >
-      <v-btn :to="{ name: 'Dashboard' }" fab text small class="z-10"
-        ><v-icon>mdi-arrow-left</v-icon></v-btn
-      >
-      <p class="ma-0 pa-0 text-center w-full absolute text-title">
-        Cable Subcription
-      </p>
-    </div>
+    <AppBar title="Cable Subcription"></AppBar>
     <div class="buy flex flex-col w-full gap-2 px-4">
       <v-select
         v-model="dform.CableName"
@@ -48,7 +39,7 @@
         class="white--text"
         large
         depressed
-        color="#000933"
+        color="#5D153A"
       >
         Buy Cable
       </v-btn>
@@ -109,8 +100,13 @@ import {
   GenerateRef,
 } from "@/services/fetch";
 
+import AppBar from "../utils/AppBar.vue";
+
 export default {
   name: "buycable",
+  components: {
+    AppBar
+  },
   data: () => ({
     tab: null,
     sCables: false,

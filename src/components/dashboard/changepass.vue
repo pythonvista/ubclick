@@ -1,27 +1,22 @@
 <template>
     <div class="wrap bg-white overflow-hidden px-3">
-     <div
-       class="navigator bg-white py-4 mb-9 px-3 w-full relative flex items-center"
-     >
-       <v-btn :to="{ name: 'Dashboard' }" fab text small class="z-10"
-         ><v-icon>mdi-arrow-left</v-icon></v-btn
-       >
-       <p class="ma-0 pa-0 text-center w-full absolute text-title">
-         Change Password
-       </p>
- 
-     </div>
-    
- 
+      <AppBar title="Change Password"></AppBar>
+   
+
    </div>
  </template>
  
  <script>
+import AppBar from "../utils/AppBar.vue";
+
 export default {
      name:'ChangePassword',
      data: ()=>({
          
-     })
+     }),
+     components:{
+      AppBar
+     }
  }
 </script>
  

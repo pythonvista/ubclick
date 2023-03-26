@@ -1,15 +1,6 @@
 <template>
   <div class="wrap">
-    <div
-      class="navigator bg-white py-4 mb-9 px-3 w-full relative flex items-center"
-    >
-      <v-btn :to="{ name: 'Dashboard' }" fab text small class="z-10"
-        ><v-icon>mdi-arrow-left</v-icon></v-btn
-      >
-      <p class="ma-0 pa-0 text-center w-full absolute text-title">
-        Electricity Bill Payment
-      </p>
-    </div>
+    <AppBar title="Electricity Bill Payment"></AppBar>
     <v-form ref="form" class="buy flex flex-col w-full gap-2 px-4">
       <v-select
         v-model="dform.discoName"
@@ -60,7 +51,7 @@
         class="white--text"
         large
         depressed
-        color="#000933"
+        color="#5D153A"
       >
         Validate Meter
       </v-btn>
@@ -71,7 +62,7 @@
         class="white--text"
         large
         depressed
-        color="#000933"
+        color="#5D153A"
       >
         Purchase Disco
       </v-btn>
@@ -105,6 +96,8 @@ import {
   GenerateRef,
 } from "@/services/fetch";
 
+import AppBar from "../utils/AppBar.vue";
+
 export default {
   name: "buycable",
   data: () => ({
@@ -117,6 +110,9 @@ export default {
     },
     inputRules: [(v) => (v && v.length >= 1) || "Field is required"],
   }),
+  components: {
+    AppBar
+  },
   methods: {
     SelectDisco(disco) {
       this.dform.discoName = disco.Disconame;

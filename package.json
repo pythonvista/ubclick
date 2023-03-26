@@ -20,6 +20,7 @@
     "v-google-translate": "^1.0.1",
     "vue": "^2.6.14",
     "vue-router": "^3.5.1",
+    "vue-router-sync": "^0.1.0",
     "vuetify": "^2.6.0",
     "vuex": "^3.6.2"
   },

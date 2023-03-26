@@ -1,20 +1,9 @@
 <template>
   <div class="wrap bg-white overflow-hidden px-3">
-   <div
-     class="navigator bg-white py-4 mb-9 px-3 w-full relative flex items-center"
-   >
-     <v-btn :to="{ name: 'Dashboard' }" fab text small class="z-10"
-       ><v-icon>mdi-arrow-left</v-icon></v-btn
-     >
-     <p class="ma-0 pa-0 text-center w-full absolute text-title">
-       Settings
-     </p>
-
-   </div>
-
+    <AppBar title="Settings"></AppBar>
    <div>
     <v-list class="bg-grey-200">
-    <v-list-item-group v-model="model">
+    <v-list-item-group >
       <v-list-item
       >
         <v-list-item-icon>
@@ -45,7 +34,7 @@
 
       <p class="pa-0 text-primary mx-4 font bold ma-0 my-5">Security</p>
 
-      <v-list-item
+      <v-list-item link :to="{name: 'ChangePassword'}"
       >
         <v-list-item-icon>
           <v-icon>mdi-lock</v-icon>
@@ -92,11 +81,15 @@
 </template>
 
 <script>
+import AppBar from "../utils/AppBar.vue";
+
 export default {
    name:'Settings',
    props: ["userData"],
+   components: {
+    AppBar
+  },
    data: ()=>({
-    model: 1,
    })
 }
 </script>

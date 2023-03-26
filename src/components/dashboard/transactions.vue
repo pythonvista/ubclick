@@ -1,15 +1,10 @@
 <template>
   <div class="wrap">
-    <div
-      class="navigator bg-white py-4 mb-9 px-3 w-full relative flex items-center"
-    >
-      <v-btn :to="{ name: 'Dashboard' }" fab text small class="z-10"
-        ><v-icon>mdi-arrow-left</v-icon></v-btn
-      >
-      <p class="ma-0 pa-0 text-center w-full absolute text-title">
-        Transactions
-      </p>
-    </div>
+    <AppBar title="Transactions"></AppBar>
+    <div v-if="spin" class="spinner around flex justify-center items-center w-full h-screen">
+        <img  width="80"  src="@/assets/spinner.gif" alt="">
+      </div>
+   
     <v-tabs v-model="tab" class="pa-0 ma-0" background-color="white" light>
       <v-tab v-for="(trans, i) in TransItem" :key="i" class="pa-0 tabs"
         ><p class="ma-0 pa-0 text-black text-xs">{{ trans }}</p></v-tab
@@ -58,14 +53,22 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 import { apiClient } from "@/services/fetch";
+
+import AppBar from "../utils/AppBar.vue";
 
 export default {
   name: "transactions",
+  components: {
+    AppBar
+  },
   data: () => ({
     tab: null,
     Transactions: [],
     TransItem: ["Airtime", "Data", "Cable", "Electricity", "Epin"],
+    spin: true
   }),
   methods: {
     async GetTransactions() {
@@ -74,7 +77,8 @@ export default {
         sort: "",
       });
       const data = await res.json();
-      this.Transactions = data;
+      this.Transactions = data.filter((v)=> v.uid == this.activeUser);
+      this.spin = false
     },
     ConvertDate(date){
       const fireBaseTime = new Date(
@@ -88,6 +92,9 @@ export default {
   created() {
     this.GetTransactions();
   },
+  computed:{
+    ...mapState(['activeUser'])
+  }
 };
 </script>
 
@@ -96,6 +103,15 @@ export default {
   padding: 0 !important;
   width: auto !important;
 }
+.spinner{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height:  100vh !important;
+    background: rgba(194, 194, 194, 0.52);
+    backdrop-filter: blur(5px);
+    z-index: 100;
+  }
 .text-title {
   position: absolute;
   top: 50%;
