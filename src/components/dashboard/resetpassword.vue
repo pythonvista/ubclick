@@ -68,19 +68,9 @@ export default {
         if(this.$refs.form.validate()){
           this.loading = true
           try{
-          if(this.dform.oldPassword == this.userData.passwd){
-            const res2 = await apiClient('auth/resetpass', 'POST', {})
+            const res2 = await apiClient('auth/resetpass', 'POST', {newpassword: this.dform.Newpassword, mode: this.$route.query.mode, oobCode: this.$route.query.oobCode, apiKey: this.$route.query.apiKey})
             const data = await res2.json()
-            if(data.status == 'success'){
-              snackbar.$emit('open', { color: 'success', text: data.msg })
-              this.loading = false
-              this.$router.go(-1)
-            }else{
-              throw {message: 'Error occured changing password'}
-            }
-          }else{
-            throw {message: 'Old Password is Incorrect'}
-          }
+            console.log(data)
         }catch(err){
           this.loading = false
           snackbar.$emit('open', { color: 'error', text: err.message })
