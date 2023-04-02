@@ -48,6 +48,7 @@
             <img width="100" src="@/assets/img/Paystack.png" />
           </div>
           <div
+          v-if="false"
             @click="SelectPayment('Bank Transfer')"
             class="w-full px-2 py-3 border-2 rounded border-solid gap-2 hover:border-black flex items-center"
           >
