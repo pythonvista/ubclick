@@ -49,7 +49,7 @@
       <div
         class="flex py-1 hover:bg-slate-100 rounded flex-col items-center justify-center"
       >
-        <v-btn color="transparent" small text
+        <v-btn :to="{name: 'BuyElectricity'}" color="transparent" small text
           ><img src="@/assets/img/bill.svg" alt=""
         /></v-btn>
         <p class="pa-0 ma-0 text-xs font-medium">Bill Payment</p>
