@@ -9,6 +9,7 @@
         class="login-box px-5 shadow-md flex flex-col items-center gap-2 justify-center"
       >
         <p class="ma-0 pa-0 text-2xl font-bold">Reset Password</p>
+        {{ $route.query }}
         <div class="w-full">
           <v-text-field
             :rules="inputRules"

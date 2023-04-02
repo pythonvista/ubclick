@@ -17,7 +17,7 @@
         <v-checkbox depressed dense background-color="transparent"  class="ma-0 pa-0 "
           label="Save my password"
         ></v-checkbox>
-       <p class="ma-0 pa-0 text-primary text-sm">Forgot password</p>
+       <p @click="dialog = !dialog" class="ma-0 pa-0 text-primary text-sm">Forgot password</p>
       </div>
        
      
@@ -25,6 +25,14 @@
         <v-btn x-small text :to="{name: 'Register'}" link  class="ma-0 pa-0 mt-2 text-black text-sm"> <p class="ma-0 pa-0 mt-2 text-black text-capitalize text-sm">Dont have an account? <span class="text-primary">Sign up</span></p></v-btn>
      
     </v-form>
+
+    <v-dialog max-width="350" v-model="dialog">
+      <v-form ref="form2" class="pa-5 gap-5 flex flex-col justify-center items-center bg-white">
+        <p class="text-primary font-bold">Reset Password</p>
+        <v-text-field class="w-full" :rules="emailRules" label="email" v-model="dform.email" filled dense></v-text-field>
+        <v-btn color="#5E153A" class="white--text" :loading="loading2" @click="ResetEmail">Send Reset Email</v-btn>
+      </v-form>
+    </v-dialog>
   </div>
 </template>
 
@@ -35,6 +43,7 @@ import { apiClient } from "@/services/fetch";
 export default {
   name: "Login",
   data:()=>({
+    dialog: false,
     dform: {
       email: '',
       passwd: ''
@@ -48,6 +57,7 @@ export default {
     (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
   ],
     loading: false,
+    loading2: false,
   }),
   methods:{
     async Login(){
@@ -69,6 +79,27 @@ export default {
         snackbar.$emit('open', { color: 'error', text: err.message })
       }
       }
+      
+    },
+    async ResetEmail(){
+      if(this.$refs.form2.validate()){
+        this.loading2 = true
+        try{
+        const res = await apiClient('auth/resetmail', 'POST', {email: this.dform.email})
+        const body = await res.json()
+        if(body.status == 'success'){
+          this.loading2 = false
+          snackbar.$emit('open', {color: 'success', text: body.msg})
+          this.dialog = false
+        }else{
+          throw {err: body.err}
+        }
+      }catch(err){
+        this.loading2 = false
+        snackbar.$emit('open', { color: 'error', text: err.message })
+      }
+      }
+        
       
     }
   
