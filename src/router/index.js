@@ -119,6 +119,24 @@ const routes = [
         import(/* webpackChunkName: "about" */ "@/components/dashboard/changepass.vue"),
       },
       {
+        path: "/reset",
+        name: "ResetPassword",
+        component: () =>
+        import(/* webpackChunkName: "about" */ "@/components/dashboard/resetpassword.vue"),
+      },
+      {
+        path: "/about",
+        name: "About",
+        component: () =>
+        import(/* webpackChunkName: "about" */ "@/components/dashboard/about.vue"),
+      },
+      {
+        path: "/contact-us",
+        name: "Contact",
+        component: () =>
+        import(/* webpackChunkName: "about" */ "@/components/dashboard/contact.vue"),
+      },
+      {
         path: "/faq",
         name: "Faq",
         component: () =>

@@ -5,6 +5,7 @@
     <v-list class="bg-grey-200">
     <v-list-item-group >
       <v-list-item
+      disabled
       >
         <v-list-item-icon>
           <v-icon>mdi-account</v-icon>
@@ -14,6 +15,7 @@
         </v-list-item-content>
       </v-list-item>
       <v-list-item
+      disabled
       >
         <v-list-item-icon>
           <v-icon>mdi-phone</v-icon>
@@ -23,6 +25,7 @@
         </v-list-item-content>
       </v-list-item>
       <v-list-item
+      disabled
       >
         <v-list-item-icon>
           <v-icon>mdi-email</v-icon>
@@ -44,6 +47,7 @@
         </v-list-item-content>
       </v-list-item>
       <v-list-item
+      @click="LogOut"
       >
         <v-list-item-icon>
           <v-icon>mdi-logout</v-icon>
@@ -55,6 +59,7 @@
 
       <p class="pa-0 text-primary mx-4 font bold ma-0 my-5">About</p>
       <v-list-item
+      link :to="{name: 'About'}"
       >
         <v-list-item-icon>
           <v-icon>mdi-information</v-icon>
@@ -64,6 +69,7 @@
         </v-list-item-content>
       </v-list-item>
       <v-list-item
+      link :to="{name: 'Contact'}"
       >
         <v-list-item-icon>
           <v-icon>mdi-card-account-mail</v-icon>
@@ -90,7 +96,13 @@ export default {
     AppBar
   },
    data: ()=>({
-   })
+   }),
+   methods:{
+    LogOut(){
+      this.$store.dispatch('RemoveUser', '')
+      this.$router.push({path: '/'})
+    },
+   }
 }
 </script>
 

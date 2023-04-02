@@ -1,28 +1,139 @@
 <template>
-    <div class="wrap bg-white overflow-hidden px-3">
-      <AppBar title="Change Password"></AppBar>
-   
+  <div class="wrap bg-white overflow-hidden">
+    <div class="app-bar">
+      <AppBar :dark="true" title="Change Password"></AppBar>
+    </div>
 
-   </div>
- </template>
- 
- <script>
+    <v-form
+      ref="form"
+      class="login-box px-5 shadow-md flex flex-col items-center gap-2 justify-center"
+    >
+      <p class="ma-0 pa-0 text-2xl font-bold">Change Password</p>
+      <div class="w-full">
+        <v-text-field
+          :rules="inputRules"
+          v-model="dform.oldPassword"
+          prepend-inner-icon="mdi-lock"
+          label="Old Password"
+          background-color="white"
+          solo
+          flat
+          class="ma-0 elevation-0 pa-0"
+        ></v-text-field>
+      </div>
+      <div class="w-full">
+        <v-text-field
+          :rules="inputRules"
+          type="password"
+          v-model="dform.Newpassword"
+          prepend-inner-icon="mdi-lock"
+          label="New Password"
+          solo
+          flat
+          class="ma-0 pa-0"
+        ></v-text-field>
+      </div>
+      <div class="w-full">
+        <v-text-field
+          :rules="[(v) => v == dform.Newpassword || 'Password Mismatch']"
+          type="password"
+          prepend-inner-icon="mdi-lock"
+          label="Re-enter New Password"
+          solo
+          flat
+          class="ma-0 pa-0"
+        ></v-text-field>
+      </div>
+
+      <v-btn
+        :loading="loading"
+        depressed
+        @click="ChangePass"
+        
+        color="#5E153A"
+        class="w-full login_btn white--text mt-2"
+        >Change Password</v-btn
+      >
+    </v-form>
+  </div>
+</template>
+
+<script>
+import { snackbar } from "@/main";
+import { apiClient } from "@/services/fetch";
+
 import AppBar from "../utils/AppBar.vue";
 
 export default {
-     name:'ChangePassword',
-     data: ()=>({
-         
-     }),
-     components:{
-      AppBar
-     }
- }
+  name: "ChangePassword",
+  props: ["userData"],
+  data: () => ({
+    inputRules: [(v) => (v && v.length >= 1) || "Field is required"],
+   
+    dform: {
+      Newpassword: "",
+      oldPassword: ""
+    },
+    loading:false
+  }),
+  methods:{
+    async ChangePass(){
+      if(this.$refs.form.validate()){
+        this.loading = true
+        try{
+        if(this.dform.oldPassword == this.userData.passwd){
+          const res2 = await apiClient('auth/changepass', 'POST', {email: this.userData.email, oldpassword: this.dform.oldPassword, newpassword: this.dform.Newpassword})
+          const data = await res2.json()
+          if(data.status == 'success'){
+            snackbar.$emit('open', { color: 'success', text: data.msg })
+            this.loading = false
+            this.$router.go(-1)
+          }else{
+            throw {message: 'Error occured changing password'}
+          }
+        }else{
+          throw {message: 'Old Password is Incorrect'}
+        }
+      }catch(err){
+        this.loading = false
+        snackbar.$emit('open', { color: 'error', text: err.message })
+      }
+      }
+      
+    }
+  },
+  components: {
+    AppBar,
+  },
+};
 </script>
- 
- <style scoped>
- .slatepri{
-     background: #F4F3F3 !important;
- }
- 
- </style>
+
+<style scoped>
+.wrap {
+  background: url(@/assets/chp.png);
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.slatepri {
+  background: #f4f3f3 !important;
+}
+
+.app-bar {
+  height: 35vh;
+}
+
+.login-box {
+  height: 65vh;
+  background: #ebebeb;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+}
+
+.password_b {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>
