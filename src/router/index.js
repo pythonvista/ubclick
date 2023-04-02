@@ -21,6 +21,13 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/Login.vue"),
   },
   {
+    path: "/reset",
+    name: "ResetPassword",
+    meta: { requiresGuest: true },
+    component: () =>
+    import(/* webpackChunkName: "about" */ "@/components/dashboard/resetpassword.vue"),
+  },
+  {
     path: "/register",
     name: "Register",
     meta: { requiresGuest: true },
@@ -118,12 +125,7 @@ const routes = [
         component: () =>
         import(/* webpackChunkName: "about" */ "@/components/dashboard/changepass.vue"),
       },
-      {
-        path: "/reset",
-        name: "ResetPassword",
-        component: () =>
-        import(/* webpackChunkName: "about" */ "@/components/dashboard/resetpassword.vue"),
-      },
+     
       {
         path: "/about",
         name: "About",
