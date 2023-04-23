@@ -84,7 +84,7 @@ export default {
           this.loading = true;
           await apiClient("store/update", "POST", {
             collection: "ELECTRICITY",
-            uid: this.dform.uid,
+            uid: this.dform.docid,
             data: this.dform,
           });
           snackbar.$emit("open", {
@@ -105,7 +105,7 @@ export default {
       try {
         await apiClient("store/update", "POST", {
           collection: "ELECTRICITY",
-          uid: n.uid,
+          uid: n.docid,
           data: n,
         });
         snackbar.$emit("open", {

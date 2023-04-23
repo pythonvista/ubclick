@@ -21,7 +21,10 @@
     </div>
 
     <v-dialog max-width="400px" v-model="dialog">
-      <v-form ref="form" class="pa-3 bg-white flex flex-col justify-center items-center">
+      <v-form
+        ref="form"
+        class="pa-3 bg-white flex flex-col justify-center items-center"
+      >
         <p class="ma-0 pa-0 text-md text-center font-bold">Edit Network</p>
         <v-text-field
           v-model.number="dform.name"
@@ -47,7 +50,7 @@
         </v-text-field>
 
         <v-btn :loading="loading" @click="UpdateNetwork">Save Changes</v-btn>
-    </v-form>
+      </v-form>
     </v-dialog>
   </div>
 </template>
@@ -67,48 +70,42 @@ export default {
     loading: false,
     dform: {},
     dialog: false,
-    inputRules: [
-    (v) => (v && v.length >= 1) || 'Field is required'
-    ],
-    inputRules2: [
-    (v) => (v) || 'Field is required'
-    ],
+    inputRules: [(v) => (v && v.length >= 1) || "Field is required"],
+    inputRules2: [(v) => v || "Field is required"],
   }),
   methods: {
-    Edit(n){
-        this.dform = n
-        this.dialog = true
+    Edit(n) {
+      this.dform = n;
+      this.dialog = true;
     },
-   async UpdateNetwork(){
-    if(this.$refs.form.validate()){
+    async UpdateNetwork() {
+      if (this.$refs.form.validate()) {
         try {
-        this.loading = true
-        await apiClient("store/update", "POST", {
-          collection: "NETWORKS",
-          uid: this.dform.uid,
-          data: this.dform,
-        });
-        snackbar.$emit("open", {
-          color: "succes",
-          text: "Updated Successfully",
-        });
-        this.loading = false
-        this.dform = {}
-        this.dialog = false
-        
-      } catch (err) {
-        this.loading = false
-        console.log(err);
-        snackbar.$emit("open", { color: "error", text: "Error Eccoured" });
+          this.loading = true;
+          await apiClient("store/update", "POST", {
+            collection: "NETWORKS",
+            uid: this.dform.docid,
+            data: this.dform,
+          });
+          snackbar.$emit("open", {
+            color: "succes",
+            text: "Updated Successfully",
+          });
+          this.loading = false;
+          this.dform = {};
+          this.dialog = false;
+        } catch (err) {
+          this.loading = false;
+          console.log(err);
+          snackbar.$emit("open", { color: "error", text: "Error Eccoured" });
+        }
       }
-    }
-    
-   },
+    },
     async ActivateNetwork(n) {
       try {
         await apiClient("store/update", "POST", {
           collection: "NETWORKS",
-          uid: n.uid,
+          uid: n.docid,
           data: n,
         });
         snackbar.$emit("open", {

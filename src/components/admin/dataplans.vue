@@ -4,7 +4,9 @@
       Data Plan Settings
     </p>
     <div class="flex justify-center items-center pa-3">
-    <v-btn small color="blue" class="white--text" @click="OpenPlan">Add New Plan</v-btn>
+      <v-btn small color="blue" class="white--text" @click="OpenPlan"
+        >Add New Plan</v-btn
+      >
     </div>
     <v-tabs v-model="tab" align-with-title>
       <v-tabs-slider color="yellow"></v-tabs-slider>
@@ -38,7 +40,7 @@
       </v-tab-item>
     </v-tabs-items>
 
-    <v-dialog  max-width="400px" v-model="dialog">
+    <v-dialog max-width="400px" v-model="dialog">
       <v-form
         ref="form"
         class="pa-3 bg-white flex flex-col justify-center items-center"
@@ -57,7 +59,6 @@
           outlined
           :rules="inputRules"
         >
-        
         </v-text-field>
         <v-text-field
           v-model="dform.Size"
@@ -65,7 +66,6 @@
           outlined
           :rules="inputRules"
         >
-        
         </v-text-field>
         <v-text-field
           v-model="dform.Validity"
@@ -73,11 +73,10 @@
           outlined
           :rules="inputRules"
         >
-        
         </v-text-field>
 
         <v-text-field
-          v-model.number="dform.dataId"
+          v-model="dform.dataId"
           label="Data Id"
           outlined
           type="number"
@@ -92,9 +91,18 @@
         >
         </v-text-field>
 
-        <v-btn v-if="dform.uid" :loading="loading" @click="UpdateNetwork">Save Changes</v-btn>
+        <v-btn v-if="dform.docid" :loading="loading" @click="UpdateNetwork"
+          >Save Changes</v-btn
+        >
 
-        <v-btn v-else color="blue" class="white--text" :loading="loading" @click="AddPlan">Add Plan</v-btn>
+        <v-btn
+          v-else
+          color="blue"
+          class="white--text"
+          :loading="loading"
+          @click="AddPlan"
+          >Add Plan</v-btn
+        >
       </v-form>
     </v-dialog>
   </div>
@@ -130,7 +138,7 @@ export default {
           this.loading = true;
           await apiClient("store/update", "POST", {
             collection: "DATAPACKS",
-            uid: this.dform.uid,
+            uid: this.dform.docid,
             data: this.dform,
           });
           snackbar.$emit("open", {
@@ -147,37 +155,39 @@ export default {
         }
       }
     },
-    OpenPlan(){
-      this.dform = {}
-      this.dialog = true
+    OpenPlan() {
+      this.dform = {};
+      this.dialog = true;
     },
-    async AddPlan(){
-      if(this.$refs.form.validate()){
-        try{
-        this.loading = true
-       const response = await apiClient('store/add', 'POST', {data: this.dform, collection: 'DATAPACKS'})
-       const res = await response.json()
-       if(res.status == 'error'){
-        throw res
-       } 
+    async AddPlan() {
+      if (this.$refs.form.validate()) {
+        try {
+          this.loading = true;
+          const response = await apiClient("store/add", "POST", {
+            data: this.dform,
+            collection: "DATAPACKS",
+          });
+          const res = await response.json();
+          if (res.status == "error") {
+            throw res;
+          }
 
-       if(res.status == 'success'){
-        this.loading = false
-        this.dialog = false
-        snackbar.$emit("open", { color: "success", text: res.msg });
-       }
-      }catch(err){
-        this.loading = false
-        snackbar.$emit("open", { color: "error", text: "Error Eccoured" });
+          if (res.status == "success") {
+            this.loading = false;
+            this.dialog = false;
+            snackbar.$emit("open", { color: "success", text: res.msg });
+          }
+        } catch (err) {
+          this.loading = false;
+          snackbar.$emit("open", { color: "error", text: "Error Eccoured" });
+        }
       }
-      }
-    
     },
     async ActivateData(n) {
       try {
         await apiClient("store/update", "POST", {
           collection: "DATAPACKS",
-          uid: n.uid,
+          uid: n.docid,
           data: n,
         });
         snackbar.$emit("open", {
