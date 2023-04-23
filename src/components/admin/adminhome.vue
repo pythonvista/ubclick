@@ -151,6 +151,34 @@
         </div>
       </div>
     </a>
+    <a
+      href="#"
+      class="relative block rounded-sm border-t-4 border-black p-4 shadow-xl sm:p-6 lg:p-8"
+    >
+      <div class="flex items-center gap-4">
+        <v-icon large color="black">mdi-cash</v-icon>
+
+        <h3 class="text-3xl font-bold text-green-500 sm:text-4xl">
+          ₦{{ TransDetails(1, "cable").total }}+
+        </h3>
+      </div>
+
+      <p class="mt-4 font-medium text-gray-500">Total Revenue For Cables</p>
+    </a>
+    <a
+      href="#"
+      class="relative block rounded-sm border-t-4 border-black p-4 shadow-xl sm:p-6 lg:p-8"
+    >
+      <div class="flex items-center gap-4">
+        <v-icon large color="black">mdi-cash</v-icon>
+
+        <h3 class="text-3xl font-bold text-green-500 sm:text-4xl">
+          ₦{{ TransDetails(1, "epins").total }}+
+        </h3>
+      </div>
+
+      <p class="mt-4 font-medium text-gray-500">Total Revenue For Epins</p>
+    </a>
   </div>
 </template>
 
@@ -209,7 +237,6 @@ export default {
         let trans = this.trans.filter(
           (v) => v.network == network && v.transType == "Data"
         );
-        console.log(trans);
         let total = trans.reduce(
           (accumulator, currentValue) =>
             accumulator + parseInt(currentValue.amount),
@@ -219,16 +246,14 @@ export default {
           total -
           trans.reduce(
             (accumulator, currentValue) =>
-              accumulator + parseInt(currentValue.amount),
+              accumulator + parseInt(currentValue.plan_amount),
             0
           );
         return { total: total, profit: profit };
       }
 
       if (bill == "cable") {
-        let trans = this.trans.filter(
-          (v) => v.network == network && v.transType == "Cable"
-        );
+        let trans = this.trans.filter((v) => v.transType == "Cable");
         let total = trans.reduce(
           (accumulator, currentValue) => accumulator + currentValue.amount,
           0
@@ -236,7 +261,23 @@ export default {
         let profit =
           total -
           trans.reduce(
-            (accumulator, currentValue) => accumulator + currentValue.amount,
+            (accumulator, currentValue) =>
+              accumulator + currentValue.plan_amount,
+            0
+          );
+        return { total: total, profit: profit };
+      }
+      if (bill == "epins") {
+        let trans = this.trans.filter((v) => v.transType == "Epins");
+        let total = trans.reduce(
+          (accumulator, currentValue) => accumulator + currentValue.amount,
+          0
+        );
+        let profit =
+          total -
+          trans.reduce(
+            (accumulator, currentValue) =>
+              accumulator + currentValue.plan_amount,
             0
           );
         return { total: total, profit: profit };
