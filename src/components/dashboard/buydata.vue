@@ -1,7 +1,7 @@
 <template>
   <div class="wrap">
     <AppBar title="Buy Data Bundle"></AppBar>
-  
+
     <v-form ref="form" class="buy flex flex-col w-full gap-2 px-4">
       <v-select
         @click="SelectData()"
@@ -22,7 +22,7 @@
         label="Select Plan Type"
       ></v-select>
       <v-select
-      :rules="inputRules"
+        :rules="inputRules"
         :disabled="!dform.network"
         @click="plans = true"
         v-model="dform.plan"
@@ -33,7 +33,7 @@
       ></v-select>
 
       <v-text-field
-       :rules="inputRules"
+        :rules="inputRules"
         label="Phone Number"
         v-model="dform.mobile"
         outlined
@@ -102,17 +102,14 @@
 import { mapState } from "vuex";
 
 import { snackbar } from "@/main";
-import {
-  apiClient,
-  GenerateRef,
-} from "@/services/fetch";
+import { apiClient, GenerateRef } from "@/services/fetch";
 
 import AppBar from "../utils/AppBar.vue";
 
 export default {
   name: "buydata",
   components: {
-    AppBar
+    AppBar,
   },
   data: () => ({
     tab: null,
@@ -169,7 +166,7 @@ export default {
     async BuyData() {
       if (this.$refs.form.validate()) {
         this.loading = true;
-        let refs = GenerateRef('Data')
+        let refs = GenerateRef("Data");
         try {
           let data = {
             ...this.dform.planData,
@@ -178,22 +175,22 @@ export default {
             network_id: this.dform.network_id,
             transref: refs.transref,
             channel: refs.channel,
-            createdAt: refs.createdAt
+            createdAt: refs.createdAt,
           };
           const res = await apiClient("data", "POST", data);
           const response = await res.json();
-          this.loading = false
+          this.loading = false;
           if (response.status == "error") {
             throw { err: response, msg: response.msg };
           }
-          if(response.status == 'success'){
-            snackbar.$emit('open', { color: 'success', text:response.msg })
-            this.$router.push({path: '/dashboard'})
+          if (response.status == "success") {
+            snackbar.$emit("open", { color: "success", text: response.msg });
+            this.$router.push({ path: "/dashboard" });
           }
         } catch (err) {
-          this.loading  = false
-          snackbar.$emit('open', { color: 'error', text: err.msg })
-
+          console.log(err);
+          this.loading = false;
+          snackbar.$emit("open", { color: "error", text: err.msg });
         }
       }
     },
