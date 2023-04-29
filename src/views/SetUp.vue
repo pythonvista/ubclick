@@ -73,7 +73,7 @@
           <div class="relative">
             <input
               type="password"
-              v-model="dform.pystackpublickey"
+              v-model="dform.paystackpublickey"
               class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
               placeholder="Enter Paystack Public Key"
             />
@@ -133,7 +133,9 @@
     </div>
 
     <v-dialog v-model="dialog" max-width="300">
-      <div class="bg-white px-3 py-4 flex flex-col justify-center items-center gap-3 rounded shadow-md">
+      <div
+        class="bg-white px-3 py-4 flex flex-col justify-center items-center gap-3 rounded shadow-md"
+      >
         <p class="ma-0 pa-0">{{ title.info }}</p>
         <p class="ma-0 pa-0">{{ title.descrp }}</p>
         <v-progress-circular
@@ -165,22 +167,21 @@ export default {
   data: () => ({
     Admin: {},
     loadDom: false,
-    dform: {
-      
-    },
-    title: { info: "", descrp: "", status: '' },
+    dform: {},
+    title: { info: "", descrp: "", status: "" },
     temp: {},
     dialog: false,
-    progress: false
+    progress: false,
   }),
   methods: {
     async GetSetup() {
       try {
         const res = await apiClient("setup", "GET");
         const data = await res.json();
-        if(data.length > 0){
-          this.Admin = data[0];
-         
+        console.log(data);
+        if (data) {
+          this.Admin = data;
+        
         }
         this.AllowSetup();
       } catch (err) {
@@ -188,7 +189,7 @@ export default {
       }
     },
     AllowSetup() {
-      if (!this.Admin?.id || !this.Admin?.setUpProcess) {
+      if (!this.Admin?.docid || !this.Admin?.setUpProcess) {
         this.loadDom = true;
       } else {
         alert(
@@ -197,52 +198,60 @@ export default {
         this.$router.push({ path: "/" });
       }
     },
-    PopulateInfo(title, descrp){
+    PopulateInfo(title, descrp) {
       this.title.info = title;
       this.title.descrp = descrp;
     },
     async FirstStep() {
       try {
-        this.dialog = true
-        this.PopulateInfo('Step 1', 'Creating Admin Account Pls Wait....')
-        this.progress = true
+        this.dialog = true;
+        this.PopulateInfo("Step 1", "Creating Admin Account Pls Wait....");
+        this.progress = true;
         const res = await apiClient("setup/createadmin", "POST", this.dform);
-        const data = await res.json()
+        const data = await res.json();
         if (data.status == "success") {
           this.temp.userId = data.uniqueId;
-          this.title.status = data.msg
-         await this.Steps('Step 2', dataPacks, 'DATAPACKS')
-         await this.Steps('Step 3', network, 'NETWORKS')
-         await this.Steps('Step 4', electricity, 'ELECTRICITY')
-         await this.Steps('Step 5', cables, 'CABLES')
-         await this.Steps('Step 6', cableplans, 'CABLESPLAN')
-         await this.Steps('Step 7', epins, 'EPIN')
-         await this.Steps('Step 7', atc, 'ATC')
-         await apiClient("setup/finalsetup", "POST", {id: this.temp.userId, setUpProcess: true});
-         this.progress = false
-          this.dialog = false
-          snackbar.$emit('open', { color: 'success', text: 'Installation Completed' })
+          this.title.status = data.msg;
+          await this.Steps("Step 2", dataPacks, "DATAPACKS");
+          await this.Steps("Step 3", network, "NETWORKS");
+          await this.Steps("Step 4", electricity, "ELECTRICITY");
+          await this.Steps("Step 5", cables, "CABLES");
+          await this.Steps("Step 6", cableplans, "CABLESPLAN");
+          await this.Steps("Step 7", epins, "EPIN");
+          await this.Steps("Step 7", atc, "ATC");
+          await apiClient("setup/finalsetup", "POST", {
+            id: this.temp.userId,
+            setUpProcess: true,
+          });
+          this.progress = false;
+          this.dialog = false;
+          snackbar.$emit("open", {
+            color: "success",
+            text: "Installation Completed",
+          });
         }
       } catch (err) {
-        this.progress = false
+        this.progress = false;
         console.log(err);
-        snackbar.$emit('open', { color: 'error', text: 'Error Eccoured' })
+        snackbar.$emit("open", { color: "error", text: "Error Eccoured" });
       }
     },
-    async Steps(step, jsondata,collection){
-      try{
-        this.PopulateInfo(step, `Migrating ${collection} Pls Wait....`)
-        const res = await apiClient("setup/migrate", "POST", {data: jsondata, collection: collection});
-        const data = await res.json()
+    async Steps(step, jsondata, collection) {
+      try {
+        this.PopulateInfo(step, `Migrating ${collection} Pls Wait....`);
+        const res = await apiClient("setup/migrate", "POST", {
+          data: jsondata,
+          collection: collection,
+        });
+        const data = await res.json();
         if (data.status == "success") {
-          this.title.status = data.msg
+          this.title.status = data.msg;
         }
-      }catch(err){
-        console.log(err)
-        snackbar.$emit('open', { color: 'error', text: 'Error Eccoured' })
+      } catch (err) {
+        console.log(err);
+        snackbar.$emit("open", { color: "error", text: "Error Eccoured" });
       }
-    }
-
+    },
   },
   computed: {},
   created() {

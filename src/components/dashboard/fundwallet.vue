@@ -26,7 +26,7 @@
       ></v-text-field>
 
       <v-btn
-      @click="FundWallet"
+        @click="FundWallet"
         :loading="loading"
         class="white--text"
         large
@@ -48,7 +48,7 @@
             <img width="100" src="@/assets/img/Paystack.png" />
           </div>
           <div
-          v-if="false"
+            v-if="false"
             @click="SelectPayment('Bank Transfer')"
             class="w-full px-2 py-3 border-2 rounded border-solid gap-2 hover:border-black flex items-center"
           >
@@ -62,16 +62,16 @@
 
 <script>
 import { snackbar } from "@/main";
-// import { apiClient } from "@/services/fetch";
+import { apiClient } from "@/services/fetch";
 import PaystackPop from "@paystack/inline-js";
 
 import AppBar from "../utils/AppBar.vue";
 
 export default {
   name: "buyairtime",
-  props: ['userData'],
+  props: ["userData"],
   components: {
-    AppBar
+    AppBar,
   },
   data: () => ({
     tab: null,
@@ -83,6 +83,7 @@ export default {
     },
     payments: false,
     loading: false,
+    paystackpublikey: "",
   }),
   methods: {
     OpenPayment() {
@@ -98,27 +99,44 @@ export default {
         this.dform.payment = payment;
       }
     },
+
     async FundWallet() {
-        this.loading = true
+      this.loading = true;
       const paystack = new PaystackPop();
       paystack.newTransaction({
-        key: 'pk_test_c31fd9513a0a16e86c7ca974b870b148ae14f159',
+        key: this.paystackpublikey,
         email: this.userData.email,
         amount: this.dform.amount * 100,
         metadata: this.userData,
         onSuccess: async (transaction) => {
-            if(transaction){
-                this.loading = false
-                snackbar.$emit('open', { color: 'success', text: 'Transaction Processed'})
-                this.$router.push({name:'Dashboard'})
-            }
+          if (transaction) {
+            this.loading = false;
+            snackbar.$emit("open", {
+              color: "success",
+              text: "Transaction Processed",
+            });
+            this.$router.push({ name: "Dashboard" });
+          }
         },
         onCancel: () => {
-            this.dform = {}
-            this.loading = false
-            snackbar.$emit('open', { color: 'error', text: 'Process Aborted'})
+          this.dform = {};
+          this.loading = false;
+          snackbar.$emit("open", { color: "error", text: "Process Aborted" });
         },
       });
+    },
+    async GetPublicKey() {
+      try {
+        const res = await apiClient("store/keystore", "GET");
+        const data = await res.json();
+        this.paystackpublikey = data.paystack;
+      } catch (err) {
+        snackbar.$emit("open", {
+          color: "error",
+          text: "Cannot Get Payment Key",
+        });
+        // 'pk_test_c31fd9513a0a16e86c7ca974b870b148ae14f159'
+      }
     },
   },
   computed: {
@@ -126,7 +144,9 @@ export default {
       return this.amount - (10 / 100) * this.amount;
     },
   },
-  created() {},
+  created() {
+    this.GetPublicKey();
+  },
 };
 </script>
 
