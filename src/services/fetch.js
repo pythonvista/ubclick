@@ -2,7 +2,7 @@
 // let  url = "http://localhost:3000/";
 
 
-const url = "https://ubclick.onrender.com/";
+const url = "https://ubclickapi.onrender.com/";
 
 // const url 
 
